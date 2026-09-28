@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" width="280" height="60">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b48" />
+      <stop offset="50%" stop-color="#1e3a5f" />
+      <stop offset="100%" stop-color="#0b192e" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="50%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+  </defs>
+  <!-- Shield Icon -->
+  <g transform="translate(6, 6)">
+    <!-- Base geometric hexagon/shield -->
+    <path d="M24 2 L44 10 L44 28 C44 38 34 45 24 48 C14 45 4 38 4 28 L4 10 Z" fill="url(#shieldGrad)" stroke="#1e293b" stroke-width="1.5" />
+    <!-- Golden Wheat / Spire motif -->
+    <path d="M24 10 L28 17 L25 18 L29 25 L24 24 L24 42" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <path d="M24 10 L20 17 L23 18 L19 25 L24 24" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" fill="none" />
+    <!-- Green eco arc -->
+    <path d="M12 28 C12 34 18 39 24 41 C30 39 36 34 36 28" stroke="url(#greenGrad)" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85" />
+  </g>
+  <!-- Brand Text -->
+  <text x="64" y="30" font-family="'Outfit', 'Plus Jakarta Sans', 'Segoe UI', -apple-system, sans-serif" font-size="20" font-weight="800" letter-spacing="1.2" fill="#0f172a">
+    HARSH<tspan fill="#d97706">MAIS</tspan>
+  </text>
+  <text x="65" y="45" font-family="'Inter', 'Segoe UI', sans-serif" font-size="8.5" font-weight="600" letter-spacing="3" fill="#64748b">
+    GLOBAL ENTERPRISES
+  </text>
+</svg>
