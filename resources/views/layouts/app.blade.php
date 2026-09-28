@@ -101,11 +101,27 @@
     ENQUIRE NOW
   </a>
 
-  {{-- Harsh Group Style Floating WhatsApp Button (Bottom-Left Circular) --}}
-  <a href="https://wa.me/918008007062?text={{ urlencode('Hello HarshMais Global Team, I would like to inquire regarding infrastructure / commodities / land projects.') }}" target="_blank" rel="noopener" class="hm-float-whatsapp" title="Chat on WhatsApp">
+  {{-- Harsh Group Style Floating WhatsApp Button (Bottom-Left Circular on Desktop) --}}
+  <a href="https://wa.me/918008007062?text={{ urlencode('Hello Mais Agro House Team, I would like to inquire regarding residential apartments / plots / farmland in Bhubaneswar.') }}" target="_blank" rel="noopener" class="hm-float-whatsapp" title="Chat on WhatsApp">
     <i class="bi bi-whatsapp"></i>
     <span class="hm-float-whatsapp-pulse"></span>
   </a>
+
+  {{-- Mobile Sticky Bottom Quick Action Bar (Call / WhatsApp / Enquire) --}}
+  <div class="hm-mobile-action-bar d-md-none" id="hmMobileActionBar">
+    <a href="tel:{{ \App\Models\Setting::get('contact_phone', '+918008007062') }}" class="hm-bar-btn hm-bar-btn-call" title="Call Mais Agro House">
+      <i class="bi bi-telephone-fill"></i>
+      <span>Call Desk</span>
+    </a>
+    <a href="https://wa.me/918008007062?text={{ urlencode('Hello Mais Agro House Team, I would like to inquire regarding residential apartments / plots / farmland in Bhubaneswar.') }}" target="_blank" rel="noopener" class="hm-bar-btn hm-bar-btn-wa" title="WhatsApp Chat">
+      <i class="bi bi-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="javascript:void(0)" onclick="openEnquiryModal('general', null, 'General Project Inquiry')" class="hm-bar-btn hm-bar-btn-enquire" title="Quick Inquiry">
+      <i class="bi bi-calendar2-check-fill"></i>
+      <span>Site Visit</span>
+    </a>
+  </div>
 
   {{-- Footer Component --}}
   @include('components.footer')

@@ -20,7 +20,7 @@
         <p class="hm-video-desc">
           MAIS AGRO HOUSE brings you exquisite residential apartments, DTCP-approved gated plotted communities, and fertile organic farmlands across Bhubaneswar's prime growth corridors. 100% clear titles & peace of mind.
         </p>
-        <div class="pt-3 d-flex flex-wrap justify-content-center gap-3">
+        <div class="pt-3 d-flex flex-wrap justify-content-center gap-3 hm-hero-btns">
           <a href="#featured-projects" class="hm-btn-learn-more">
             <i class="bi bi-building me-1"></i> EXPLORE PROPERTIES
           </a>
@@ -251,7 +251,7 @@
           </div>
         </div>
 
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-3 hm-about-ctas">
           <a href="{{ route('about') }}" class="hm-btn hm-btn-primary">
             Read Corporate Profile <i class="bi bi-arrow-right"></i>
           </a>
