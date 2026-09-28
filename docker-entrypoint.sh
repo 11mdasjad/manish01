@@ -13,6 +13,17 @@ if [ ! -f /var/www/html/.env ]; then
     cp /var/www/html/.env.example /var/www/html/.env
 fi
 
+# Auto-configure Render HTTPS URL
+if [ -n "$RENDER_EXTERNAL_URL" ]; then
+    echo "Configuring APP_URL for Render: $RENDER_EXTERNAL_URL"
+    sed -i "s|^APP_URL=.*|APP_URL=${RENDER_EXTERNAL_URL}|g" /var/www/html/.env
+    sed -i "s|^APP_ENV=.*|APP_ENV=production|g" /var/www/html/.env
+elif [ -n "$RENDER_EXTERNAL_HOSTNAME" ]; then
+    echo "Configuring APP_URL for Render: https://$RENDER_EXTERNAL_HOSTNAME"
+    sed -i "s|^APP_URL=.*|APP_URL=https://${RENDER_EXTERNAL_HOSTNAME}|g" /var/www/html/.env
+    sed -i "s|^APP_ENV=.*|APP_ENV=production|g" /var/www/html/.env
+fi
+
 # Ensure SQLite database exists if SQLite is used
 if [ "${DB_CONNECTION:-sqlite}" = "sqlite" ]; then
     mkdir -p /var/www/html/database
@@ -46,10 +57,10 @@ php artisan migrate --force
 echo "Seeding corporate real estate data..."
 php artisan db:seed --class=CorporateSeeder --force || true
 
-# Optimize cache for production
-echo "Caching configurations and routes..."
-php artisan config:cache || true
-php artisan route:cache || true
+# Clear stale config cache to ensure dynamic HTTPS & reverse-proxy headers apply
+echo "Optimizing framework..."
+php artisan config:clear || true
+php artisan route:clear || true
 php artisan view:cache || true
 
 echo "Starting Apache web server on port ${PORT}..."

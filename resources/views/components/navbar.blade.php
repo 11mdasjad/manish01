@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg navbar-light py-2">
     <div class="container">
       <a class="navbar-brand hm-navbar-brand d-flex align-items-center" href="{{ route('home') }}" aria-label="Home">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="hm-brand-logo">
+        <img src="{{ asset('images/logo.png') }}" alt="Mais Agro House Logo" class="hm-brand-logo" height="52" style="max-height: 52px; width: auto; max-width: 240px; object-fit: contain;">
       </a>
 
       {{-- Mobile Toggle Button --}}
