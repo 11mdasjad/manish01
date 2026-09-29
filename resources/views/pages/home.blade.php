@@ -4,18 +4,22 @@
 @section('meta_description', 'Explore legally verified residential plots, luxury apartments, and fertile farmland investments in Bhubaneswar by Mais Agro House.')
 
 @section('content')
-{{-- HARSH GROUP REAL VIDEO HERO BANNER --}}
+{{-- MAIS AGRO HOUSE LUXURY HERO BANNER --}}
 <section class="hm-video-hero position-relative">
-  <video class="hm-hero-video-bg" autoplay muted loop playsinline poster="https://harshgroup.co.in/wp-content/uploads/2025/01/Banner-image-2.jpg">
-    <source src="https://harshgroup.co.in/wp-content/uploads/2025/01/028.mp4" type="video/mp4">
-  </video>
+  <img src="{{ asset('images/hero-banner.jpg') }}" alt="Mais Agro House Luxury Real Estate Bhubaneswar" class="hm-hero-img-bg">
   <div class="hm-hero-video-overlay"></div>
   <div class="container hm-video-hero-content text-center">
     <div class="row justify-content-center">
       <div class="col-xl-9 col-lg-10">
-        <span class="badge bg-warning text-dark text-uppercase fw-bold px-3 py-2 mb-3 rounded-pill letter-spacing-1">
-          <i class="bi bi-geo-alt-fill me-1"></i> Bhubaneswar's Premier Real Estate
-        </span>
+        {{-- Mais Agro House Corporate Brand Logo in Banner --}}
+        <div class="hm-hero-logo-box">
+          <img src="{{ asset('images/logo.png') }}" alt="Mais Agro House" class="hm-hero-logo">
+        </div>
+        <div>
+          <span class="badge bg-warning text-dark text-uppercase fw-bold px-3 py-2 mb-3 rounded-pill letter-spacing-1">
+            <i class="bi bi-geo-alt-fill me-1"></i> Bhubaneswar's Premier Real Estate
+          </span>
+        </div>
         <h1 class="hm-video-title">Building The Homes Of Your Tomorrow.</h1>
         <p class="hm-video-desc">
           MAIS AGRO HOUSE brings you exquisite residential apartments, DTCP-approved gated plotted communities, and fertile organic farmlands across Bhubaneswar's prime growth corridors. 100% clear titles & peace of mind.

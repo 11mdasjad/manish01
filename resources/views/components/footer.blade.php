@@ -78,7 +78,7 @@
   <div class="hm-footer-bottom">
     <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
       <div>
-        &copy; {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'HarshMais Global Enterprises') }}. All rights reserved.
+        &copy; {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'Mais Agro House') }}. All rights reserved.
       </div>
       <div class="d-flex align-items-center gap-4">
         <a href="{{ route('legal.privacy') }}" class="text-slate-400 hover:text-white">Privacy Policy</a>

@@ -7,21 +7,21 @@
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   {{-- Dynamic SEO Tags --}}
-  <title>@yield('title', \App\Models\Setting::get('default_meta_title', 'HarshMais Global Enterprises | Infrastructure, Agro-Commodities & Logistics'))</title>
-  <meta name="description" content="@yield('meta_description', \App\Models\Setting::get('default_meta_description', 'Premier multi-disciplinary corporate group leading in agro-commodities export, smart industrial warehousing, commercial real estate, and sustainable farmland investments.'))">
-  <meta name="keywords" content="@yield('meta_keywords', 'agro commodities, industrial warehousing EPC, farmland plots, non-basmati rice export, yellow maize, real estate mumbai bhubaneswar, harsh group, mais agro')">
+  <title>@yield('title', \App\Models\Setting::get('default_meta_title', 'Mais Agro House | Luxury Apartments, Plots & Farmland in Bhubaneswar'))</title>
+  <meta name="description" content="@yield('meta_description', \App\Models\Setting::get('default_meta_description', 'Explore legally verified residential plots, luxury apartments, and fertile farmland investments in Bhubaneswar by Mais Agro House.'))">
+  <meta name="keywords" content="@yield('meta_keywords', 'residential plots bhubaneswar, luxury apartments patia, farmland investments, mais agro house, dtcp approved plots, raghunathpur real estate, nandankanan road')">
   <link rel="canonical" href="@yield('canonical', url()->current())">
 
   {{-- Open Graph / Facebook --}}
   <meta property="og:type" content="@yield('og_type', 'website')">
   <meta property="og:url" content="{{ url()->current() }}">
-  <meta property="og:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'HarshMais Global Enterprises'))">
-  <meta property="og:description" content="@yield('og_description', \App\Models\Setting::get('default_meta_description', 'Pioneering Sustainable Infrastructure, Agro-Commodities & Enterprise Logistics'))">
+  <meta property="og:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'Mais Agro House'))">
+  <meta property="og:description" content="@yield('og_description', \App\Models\Setting::get('default_meta_description', 'Delivering premier apartments, DTCP-approved plotted developments and organic farmland in Bhubaneswar.'))">
   <meta property="og:image" content="@yield('og_image', asset('images/logo.png'))">
 
   {{-- Twitter Meta --}}
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'HarshMais Global Enterprises'))">
+  <meta name="twitter:title" content="@yield('og_title', \App\Models\Setting::get('site_name', 'Mais Agro House'))">
   <meta name="twitter:description" content="@yield('og_description', \App\Models\Setting::get('default_meta_description'))">
   <meta name="twitter:image" content="@yield('og_image', asset('images/logo.png'))">
 
@@ -44,8 +44,8 @@
   {
     "{{ '@context' }}": "https://schema.org",
     "@type": "Corporation",
-    "name": "{{ \App\Models\Setting::get('site_name', 'HarshMais Global Enterprises') }}",
-    "alternateName": "Harsh & Mais Group",
+    "name": "{{ \App\Models\Setting::get('site_name', 'Mais Agro House') }}",
+    "alternateName": "Mais Agro House Real Estate",
     "url": "{{ url('/') }}",
     "logo": "{{ asset('images/logo.png') }}",
     "description": "{{ \App\Models\Setting::get('default_meta_description') }}",

@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <title>@yield('title', 'Executive Management Dashboard') | HarshMais Global</title>
-  <link rel="icon" type="image/svg+xml" href="{{ asset('images/logo.svg') }}">
+  <title>@yield('title', 'Executive Management Dashboard') | Mais Agro House</title>
+  <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,7 +141,7 @@
 
     {{-- Admin Footer --}}
     <footer class="p-3 bg-white border-top text-center text-xs text-muted">
-      &copy; {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'HarshMais Global Enterprises') }} Executive Portal. Built for production excellence.
+      &copy; {{ date('Y') }} {{ \App\Models\Setting::get('site_name', 'Mais Agro House') }} Management Portal. Built for excellence.
     </footer>
   </div>
 
