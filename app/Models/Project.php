@@ -59,10 +59,13 @@ class Project extends Model
         if ($this->featured_image && file_exists(public_path('storage/' . $this->featured_image))) {
             return asset('storage/' . $this->featured_image);
         }
-        if ($this->featured_image && Str::startsWith($this->featured_image, ['http://', 'https://', '/images'])) {
+        if ($this->featured_image && Str::startsWith($this->featured_image, ['http://', 'https://'])) {
             return $this->featured_image;
         }
-        return asset('images/properties/apartment-exterior.jpg');
+        if ($this->featured_image && (Str::startsWith($this->featured_image, ['/images', 'images/']) || file_exists(public_path(ltrim($this->featured_image, '/'))))) {
+            return asset(ltrim($this->featured_image, '/'));
+        }
+        return asset('images/properties/commercial-tower.jpg');
     }
 
     public function getFeaturedImageUrlAttribute(): string

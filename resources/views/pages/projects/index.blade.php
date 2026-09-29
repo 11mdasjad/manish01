@@ -12,6 +12,56 @@
 
 <section class="hm-section bg-slate-50">
   <div class="container">
+    {{-- Flagship Landmark Project Spotlight --}}
+    @php
+      $flagshipProject = $projects->firstWhere('slug', 'mais-commercial-gateway') ?? $projects->first();
+    @endphp
+    @if($flagshipProject && !request('sector'))
+      <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5 bg-white border">
+        <div class="row g-0 align-items-center">
+          <div class="col-lg-7">
+            <div class="position-relative overflow-hidden" style="min-height: 360px;">
+              <img src="{{ $flagshipProject->image_url }}" alt="{{ $flagshipProject->title }}" class="w-100 h-100 object-fit-cover" style="min-height: 360px; max-height: 460px;">
+              <span class="position-absolute top-0 start-0 m-3 badge bg-danger px-3 py-2 fw-bold text-uppercase shadow-sm">
+                <i class="bi bi-star-fill text-warning me-1"></i> Flagship Commercial Landmark
+              </span>
+            </div>
+          </div>
+          <div class="col-lg-5 p-4 p-md-5">
+            <span class="text-xs text-warning fw-bold text-uppercase d-block mb-1">
+              <i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ $flagshipProject->location }}
+            </span>
+            <h2 class="fw-bold mb-3">
+              <a href="{{ route('projects.show', $flagshipProject->slug) }}" class="text-dark text-decoration-none">
+                {{ $flagshipProject->title }}
+              </a>
+            </h2>
+            <p class="text-slate-600 mb-4" style="line-height: 1.7;">
+              {{ $flagshipProject->scope }}
+            </p>
+            <div class="d-flex flex-wrap gap-2 mb-4 text-xs">
+              <div class="p-2 px-3 bg-light rounded border">
+                <span class="text-muted d-block">Investment Budget</span>
+                <strong class="text-dark">{{ $flagshipProject->budget }}</strong>
+              </div>
+              <div class="p-2 px-3 bg-light rounded border">
+                <span class="text-muted d-block">Main Road Frontage</span>
+                <strong class="text-dark">120 Ft Wide Corridor</strong>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="{{ route('projects.show', $flagshipProject->slug) }}" class="hm-btn hm-btn-primary">
+                Explore Project Details <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number', 'Hello Mais Agro House, I would like to inquire regarding ' . $flagshipProject->title) }}" target="_blank" rel="noopener" class="btn btn-outline-success fw-bold">
+                <i class="bi bi-whatsapp me-1"></i> WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+
     {{-- Sector Filters --}}
     <div class="d-flex flex-wrap gap-2 justify-content-center mb-5">
       <a href="{{ route('projects.index') }}" class="hm-btn {{ !request('sector') ? 'hm-btn-primary' : 'hm-btn-outline' }} hm-btn-sm">

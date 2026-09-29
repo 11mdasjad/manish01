@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $project->title . ' | HarshMais Project Case Study')
+@section('title', $project->title . ' | Mais Agro House Projects')
 @section('meta_description', Str::limit(strip_tags($project->scope), 160))
 @section('og_image', $project->image_url)
 
@@ -28,8 +28,8 @@
           <div class="row g-2 mb-4">
             @foreach($project->gallery as $gImg)
               <div class="col-6 col-md-4">
-                <a href="{{ $gImg }}" class="hm-lightbox-trigger d-block rounded overflow-hidden border" style="height: 120px;">
-                  <img src="{{ $gImg }}" alt="Gallery Image" class="w-100 h-100 object-fit-cover">
+                <a href="{{ asset(ltrim($gImg, '/')) }}" class="hm-lightbox-trigger d-block rounded overflow-hidden border" style="height: 120px;">
+                  <img src="{{ asset(ltrim($gImg, '/')) }}" alt="Gallery Image" class="w-100 h-100 object-fit-cover">
                 </a>
               </div>
             @endforeach
