@@ -6,11 +6,11 @@
 @section('content')
 {{-- MAIS AGRO HOUSE LUXURY VIDEO HERO BANNER --}}
 <section class="hm-video-hero position-relative">
-  {{-- Cinematic Background Video with Luxury Image Poster Fallback --}}
-  <video class="hm-hero-video-bg" autoplay muted loop playsinline poster="{{ asset('images/hero-banner.jpg') }}" id="heroVideo">
+  {{-- Cinematic Background Video with Company Property Image Poster Fallback --}}
+  <video class="hm-hero-video-bg" autoplay muted loop playsinline poster="{{ asset('images/hero-banner.png') }}" id="heroVideo">
     <source src="{{ asset('videos/hero-video.mp4') }}" type="video/mp4">
     {{-- Fallback for browsers that don't support video --}}
-    <img src="{{ asset('images/hero-banner.jpg') }}" alt="Mais Agro House Luxury Real Estate Bhubaneswar" class="hm-hero-img-bg">
+    <img src="{{ asset('images/hero-banner.png') }}" alt="Mais Agro House Commercial Properties Bhubaneswar" class="hm-hero-img-bg">
   </video>
   <div class="hm-hero-video-overlay"></div>
   <div class="container hm-video-hero-content text-center">
