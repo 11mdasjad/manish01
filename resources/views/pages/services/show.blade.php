@@ -156,10 +156,18 @@
           </form>
 
           <div class="mt-4 pt-3 border-top text-center">
-            <span class="text-xs text-muted d-block mb-1">Direct Engineering Hotline:</span>
-            <a href="tel:{{ \App\Models\Setting::get('contact_phone', '+918008007062') }}" class="fw-bold text-dark text-decoration-none">
-              <i class="bi bi-telephone text-warning me-1"></i> {{ \App\Models\Setting::get('contact_phone', '+91 8008007062') }}
-            </a>
+            <span class="text-xs text-muted d-block mb-1">Direct Advisory Hotline:</span>
+            <div class="d-flex flex-column gap-1">
+              <a href="tel:+918008007062" class="fw-bold text-dark text-decoration-none">
+                <i class="bi bi-telephone text-warning me-1"></i> +91 80080 07062
+              </a>
+              <a href="tel:+919009008014" class="fw-bold text-dark text-decoration-none">
+                <i class="bi bi-phone text-warning me-1"></i> +91 90090 08014
+              </a>
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number', 'Hello Mais Agro House, I am inquiring regarding service: ' . $service->title) }}" target="_blank" rel="noopener" class="text-success fw-bold text-decoration-none text-xs mt-1">
+                <i class="bi bi-whatsapp me-1"></i> WhatsApp Service Advisor
+              </a>
+            </div>
           </div>
         </div>
       </div>

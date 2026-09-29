@@ -61,6 +61,9 @@
         </ul>
 
         <div class="d-flex align-items-center gap-2">
+          <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-success fw-bold d-none d-xl-flex align-items-center gap-1 rounded-pill px-3 py-1 text-xs" title="Chat on WhatsApp">
+            <i class="bi bi-whatsapp"></i> +91 80080 07062
+          </a>
           <a href="{{ route('contact.index') }}" class="hm-btn-red">
             CONTACT US
           </a>
@@ -93,10 +96,16 @@
 
     <div class="d-grid gap-2">
       <button class="hm-btn hm-btn-gold w-100" data-bs-toggle="modal" data-bs-target="#enquiryModal">
-        <i class="bi bi-file-earmark-text"></i> Submit Commercial RFQ
+        <i class="bi bi-file-earmark-text"></i> Book Guided Site Tour
       </button>
-      <a href="tel:{{ \App\Models\Setting::get('contact_phone', '+918008007062') }}" class="hm-btn hm-btn-primary w-100">
-        <i class="bi bi-telephone-fill"></i> Call Trade Desk
+      <a href="tel:+918008007062" class="hm-btn hm-btn-primary w-100">
+        <i class="bi bi-telephone-fill"></i> Call Desk 1: +91 80080 07062
+      </a>
+      <a href="tel:+919009008014" class="hm-btn hm-btn-outline-dark w-100">
+        <i class="bi bi-phone-fill"></i> Call Desk 2: +91 90090 08014
+      </a>
+      <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-success w-100 fw-bold py-2">
+        <i class="bi bi-whatsapp me-1"></i> WhatsApp: +91 80080 07062
       </a>
     </div>
 

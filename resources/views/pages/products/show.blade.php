@@ -214,6 +214,9 @@
           <button class="hm-btn hm-btn-gold w-100 mb-2" onclick="openEnquiryModal('product', '{{ $product->id }}', '{{ addslashes($product->name) }}')">
             <i class="bi bi-file-earmark-text"></i> Quick RFQ Modal
           </button>
+          <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number', 'Hello Mais Agro House, I would like to inquire regarding property: ' . $product->name . ' located in Bhubaneswar.') }}" target="_blank" rel="noopener" class="btn btn-success w-100 mb-2 fw-bold">
+            <i class="bi bi-whatsapp me-1"></i> WhatsApp Property Advisor
+          </a>
         </div>
 
         {{-- Direct Enquiry Form --}}
@@ -253,7 +256,7 @@
 
             <div class="mb-2">
               <label class="form-label text-xs fw-bold">Estimated Quantity / Volume</label>
-              <input type="text" name="quantity_requirement" class="form-control form-control-sm" placeholder="e.g. 5,000 MT / 2 Containers">
+              <input type="text" name="quantity_requirement" class="form-control form-control-sm" placeholder="e.g. 1 unit / 2 acres">
             </div>
 
             <div class="mb-3">
@@ -265,6 +268,18 @@
               <i class="bi bi-send-fill"></i> Dispatch RFQ
             </button>
           </form>
+
+          <div class="mt-3 pt-3 border-top text-center">
+            <span class="text-xs text-muted d-block mb-1">Direct Property Inquiries:</span>
+            <div class="d-flex justify-content-center gap-3">
+              <a href="tel:+918008007062" class="text-dark fw-bold text-xs text-decoration-none">
+                <i class="bi bi-telephone-fill text-warning me-1"></i> +91 80080 07062
+              </a>
+              <a href="tel:+919009008014" class="text-dark fw-bold text-xs text-decoration-none">
+                <i class="bi bi-phone-fill text-warning me-1"></i> +91 90090 08014
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

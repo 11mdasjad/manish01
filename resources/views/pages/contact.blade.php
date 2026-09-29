@@ -29,9 +29,22 @@
           <p class="text-slate-600 mb-4">{{ \App\Models\Setting::get('contact_address', 'Bhubaneswar patia raghunathpur nanadankanan road 751024 odisha Landmark Punjab National Bank') }}</p>
           
           <ul class="list-unstyled text-sm text-slate-600 mb-0">
-            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone', '+91 8008007062') }}</li>
-            <li class="mb-2"><i class="bi bi-phone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone_alt', '+91 9009008014') }}</li>
-            <li class="mb-0"><i class="bi bi-envelope-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}</li>
+            <li class="mb-2">
+              <i class="bi bi-telephone-fill text-warning me-2"></i> 
+              <a href="tel:+918008007062" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }} (Desk 1)</a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-phone-fill text-warning me-2"></i> 
+              <a href="tel:+919009008014" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }} (Desk 2)</a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-whatsapp text-success me-2"></i> 
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">Chat on WhatsApp (+91 80080 07062)</a>
+            </li>
+            <li class="mb-0">
+              <i class="bi bi-envelope-fill text-warning me-2"></i> 
+              <a href="mailto:{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}" class="text-dark text-decoration-none">{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -51,9 +64,23 @@
           <p class="text-slate-600 mb-4">Nandankanan Road, Patia, Bhubaneswar, Odisha 751024 (Landmark: Near Punjab National Bank)</p>
           
           <ul class="list-unstyled text-sm text-slate-600 mb-0">
-            <li class="mb-2"><i class="bi bi-telephone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone', '+91 8008007062') }}</li>
+            <li class="mb-2">
+              <i class="bi bi-telephone-fill text-warning me-2"></i> 
+              <a href="tel:+918008007062" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }}</a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-phone-fill text-warning me-2"></i> 
+              <a href="tel:+919009008014" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }}</a>
+            </li>
+            <li class="mb-2">
+              <i class="bi bi-whatsapp text-success me-2"></i> 
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number_alt') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">WhatsApp Support (+91 90090 08014)</a>
+            </li>
             <li class="mb-2"><i class="bi bi-clock-fill text-warning me-2"></i> {{ \App\Models\Setting::get('office_hours', 'Mon - Sun: 09:00 AM - 07:00 PM') }}</li>
-            <li class="mb-0"><i class="bi bi-envelope-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}</li>
+            <li class="mb-0">
+              <i class="bi bi-envelope-fill text-warning me-2"></i> 
+              <a href="mailto:{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}" class="text-dark text-decoration-none">{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -88,7 +115,7 @@
 
               <div class="col-md-6">
                 <label class="form-label text-xs fw-bold text-dark">Phone / WhatsApp Number</label>
-                <input type="tel" name="phone" class="form-control" placeholder="+91 80000 00000">
+                <input type="tel" name="phone" class="form-control" placeholder="e.g. +91 80080 07062">
               </div>
 
               <div class="col-md-6">
@@ -98,7 +125,7 @@
 
               <div class="col-12">
                 <label class="form-label text-xs fw-bold text-dark">Subject / Nature of Inquiry</label>
-                <input type="text" name="subject" class="form-control" placeholder="e.g. Grain Export Contract / Farmland Site Visit">
+                <input type="text" name="subject" class="form-control" placeholder="e.g. Residential Plot Inspection / Farmland Site Visit">
               </div>
 
               <div class="col-12">

@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (alertBox) {
           alertBox.innerHTML = `
             <div class="alert alert-danger" role="alert">
-              An unexpected network transmission error occurred. Please contact our direct line: +91 8008007062.
+              An unexpected network transmission error occurred. Please contact our direct lines: +91 80080 07062 or +91 90090 08014.
             </div>
           `;
         }
@@ -387,6 +387,28 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(() => {
       toastEl.remove();
     }, 4500);
+  }
+
+  // Floating WhatsApp Widget Dropup toggle
+  const waWrap = document.querySelector('.hm-float-whatsapp-wrap');
+  const waBtn = document.getElementById('hmFloatWhatsappBtn');
+  const waPopup = document.getElementById('hmWhatsappPopup');
+
+  if (waBtn && waPopup) {
+    waBtn.addEventListener('click', function (e) {
+      if (window.innerWidth >= 992) {
+        if (!waPopup.classList.contains('is-active')) {
+          e.preventDefault();
+          waPopup.classList.add('is-active');
+        }
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (waWrap && !waWrap.contains(e.target)) {
+        waPopup.classList.remove('is-active');
+      }
+    });
   }
 
   window.showCorporateToast = showToast;

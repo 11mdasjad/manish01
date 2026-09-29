@@ -122,10 +122,17 @@
         <div class="p-4 bg-dark text-white rounded-4 shadow-sm text-center">
           <i class="bi bi-headset fs-1 text-warning d-block mb-2"></i>
           <h5 class="fw-bold text-white mb-1">Corporate Infrastructure Desk</h5>
-          <p class="text-xs text-slate-300 mb-3">Speak directly with our senior project directors regarding joint ventures or EPC tenders.</p>
-          <a href="tel:{{ \App\Models\Setting::get('contact_phone', '+918008007062') }}" class="hm-btn hm-btn-outline-white w-100 hm-btn-sm">
-            {{ \App\Models\Setting::get('contact_phone', '+91 8008007062') }}
-          </a>
+          <div class="d-grid gap-2">
+            <a href="tel:+918008007062" class="hm-btn hm-btn-outline-white w-100 hm-btn-sm">
+              <i class="bi bi-telephone-fill me-1"></i> +91 80080 07062 (Desk 1)
+            </a>
+            <a href="tel:+919009008014" class="hm-btn hm-btn-outline-white w-100 hm-btn-sm">
+              <i class="bi bi-phone-fill me-1"></i> +91 90090 08014 (Desk 2)
+            </a>
+            <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number', 'Hello Mais Agro House, I would like to inquire regarding project: ' . $project->title) }}" target="_blank" rel="noopener" class="btn btn-success btn-sm fw-bold">
+              <i class="bi bi-whatsapp me-1"></i> Project WhatsApp Chat
+            </a>
+          </div>
         </div>
       </div>
     </div>

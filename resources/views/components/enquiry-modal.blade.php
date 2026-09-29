@@ -24,22 +24,22 @@
           <div class="row g-3">
             <div class="col-md-6">
               <label class="form-label fw-bold small text-slate-700">Full Name / Representative <span class="text-danger">*</span></label>
-              <input type="text" name="name" class="form-control" placeholder="e.g. David Richardson" required>
+              <input type="text" name="name" class="form-control" placeholder="e.g. Ramesh Chandra" required>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label fw-bold small text-slate-700">Corporate Email <span class="text-danger">*</span></label>
-              <input type="email" name="email" class="form-control" placeholder="e.g. d.richardson@company.com" required>
+              <label class="form-label fw-bold small text-slate-700">Email Address <span class="text-danger">*</span></label>
+              <input type="email" name="email" class="form-control" placeholder="e.g. ramesh@example.com" required>
             </div>
 
             <div class="col-md-6">
               <label class="form-label fw-bold small text-slate-700">Phone / WhatsApp Number <span class="text-danger">*</span></label>
-              <input type="tel" name="phone" class="form-control" placeholder="e.g. +91 98000 00000 / +1 555 0192" required>
+              <input type="tel" name="phone" class="form-control" placeholder="e.g. +91 80080 07062" required>
             </div>
 
             <div class="col-md-6">
-              <label class="form-label fw-bold small text-slate-700">Company / Organization</label>
-              <input type="text" name="company" class="form-control" placeholder="e.g. Global Agri Holdings LLC">
+              <label class="form-label fw-bold small text-slate-700">City / State</label>
+              <input type="text" name="company" class="form-control" placeholder="e.g. Bhubaneswar, Odisha">
             </div>
 
             <div class="col-12" id="enquiryItemDisplayGroup" style="display: none;">

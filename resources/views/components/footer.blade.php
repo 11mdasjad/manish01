@@ -66,8 +66,18 @@
             <span class="small">{{ \App\Models\Setting::get('office_hours', 'Monday - Sunday: 09:00 AM - 07:00 PM (Site visits open all days)') }}</span>
           </div>
           <div class="pt-2 border-top border-secondary">
-            <span class="small d-block"><i class="bi bi-telephone text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone', '+91 8008007062') }}</span>
-            <span class="small d-block"><i class="bi bi-envelope text-warning me-2"></i> {{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}</span>
+            <a href="tel:+918008007062" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
+              <i class="bi bi-telephone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }} (Desk 1)
+            </a>
+            <a href="tel:+919009008014" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
+              <i class="bi bi-phone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }} (Desk 2)
+            </a>
+            <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="text-success text-decoration-none hover:text-white small d-block mb-1 fw-semibold">
+              <i class="bi bi-whatsapp me-2"></i> WhatsApp: +91 80080 07062
+            </a>
+            <a href="mailto:{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}" class="text-slate-300 text-decoration-none hover:text-white small d-block">
+              <i class="bi bi-envelope text-warning me-2"></i> {{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}
+            </a>
           </div>
         </div>
       </div>

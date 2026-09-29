@@ -58,13 +58,22 @@
       "postalCode": "751024",
       "addressCountry": "IN"
     },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "{{ \App\Models\Setting::get('contact_phone') }}",
-      "contactType": "Customer Service",
-      "areaServed": "Global",
-      "availableLanguage": ["English", "Hindi"]
-    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91 80080 07062",
+        "contactType": "Sales & Site Visits",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Hindi", "Odia"]
+      },
+      {
+        "@type": "ContactPoint",
+        "telephone": "+91 90090 08014",
+        "contactType": "Customer Support",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Hindi", "Odia"]
+      }
+    ],
     "sameAs": [
       "{{ \App\Models\Setting::get('social_linkedin', 'https://linkedin.com') }}",
       "{{ \App\Models\Setting::get('social_twitter', 'https://twitter.com') }}",
@@ -101,19 +110,43 @@
     ENQUIRE NOW
   </a>
 
-  {{-- Harsh Group Style Floating WhatsApp Button (Bottom-Left Circular on Desktop) --}}
-  <a href="https://wa.me/918008007062?text={{ urlencode('Hello Mais Agro House Team, I would like to inquire regarding residential apartments / plots / farmland in Bhubaneswar.') }}" target="_blank" rel="noopener" class="hm-float-whatsapp" title="Chat on WhatsApp">
-    <i class="bi bi-whatsapp"></i>
-    <span class="hm-float-whatsapp-pulse"></span>
-  </a>
+  {{-- Floating WhatsApp Widget (Bottom-Left Circular on Desktop) with Dual Number Support --}}
+  <div class="hm-float-whatsapp-wrap">
+    <div class="hm-whatsapp-popup shadow-lg rounded-4 p-3 border" id="hmWhatsappPopup">
+      <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom">
+        <div class="d-flex align-items-center gap-2">
+          <i class="bi bi-whatsapp text-success fs-5"></i>
+          <div>
+            <span class="fw-bold d-block text-xs text-dark">Mais Agro House</span>
+            <span class="text-xs text-success d-flex align-items-center gap-1"><span class="badge bg-success rounded-circle p-1"></span> Online Now</span>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-muted mb-2">Connect instantly on official WhatsApp:</p>
+      <div class="d-grid gap-2">
+        <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-between text-decoration-none py-2 px-3 rounded-3">
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-whatsapp"></i> <span>Desk 1 (Sales)</span></span>
+          <span class="fw-bold text-xs">+91 80080 07062</span>
+        </a>
+        <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number_alt') }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-success d-flex align-items-center justify-content-between text-decoration-none py-2 px-3 rounded-3">
+          <span class="d-flex align-items-center gap-2"><i class="bi bi-whatsapp"></i> <span>Desk 2 (Advisory)</span></span>
+          <span class="fw-bold text-xs">+91 90090 08014</span>
+        </a>
+      </div>
+    </div>
+    <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="hm-float-whatsapp" title="Chat on WhatsApp" id="hmFloatWhatsappBtn">
+      <i class="bi bi-whatsapp"></i>
+      <span class="hm-float-whatsapp-pulse"></span>
+    </a>
+  </div>
 
   {{-- Mobile Sticky Bottom Quick Action Bar (Call / WhatsApp / Enquire) --}}
   <div class="hm-mobile-action-bar d-md-none" id="hmMobileActionBar">
-    <a href="tel:{{ \App\Models\Setting::get('contact_phone', '+918008007062') }}" class="hm-bar-btn hm-bar-btn-call" title="Call Mais Agro House">
+    <a href="#hmPhoneModal" data-bs-toggle="modal" data-bs-target="#hmPhoneModal" class="hm-bar-btn hm-bar-btn-call" title="Call Mais Agro House">
       <i class="bi bi-telephone-fill"></i>
       <span>Call Desk</span>
     </a>
-    <a href="https://wa.me/918008007062?text={{ urlencode('Hello Mais Agro House Team, I would like to inquire regarding residential apartments / plots / farmland in Bhubaneswar.') }}" target="_blank" rel="noopener" class="hm-bar-btn hm-bar-btn-wa" title="WhatsApp Chat">
+    <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="hm-bar-btn hm-bar-btn-wa" title="WhatsApp Chat">
       <i class="bi bi-whatsapp"></i>
       <span>WhatsApp</span>
     </a>
@@ -121,6 +154,41 @@
       <i class="bi bi-calendar2-check-fill"></i>
       <span>Site Visit</span>
     </a>
+  </div>
+
+  {{-- Quick Contact & Call Chooser Modal for Mobile --}}
+  <div class="modal fade" id="hmPhoneModal" tabindex="-1" aria-labelledby="hmPhoneModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content rounded-4 border-0 shadow">
+        <div class="modal-header border-bottom py-2">
+          <h6 class="modal-title fw-bold" id="hmPhoneModalLabel"><i class="bi bi-headset text-warning me-2"></i> Contact Mais Agro House</h6>
+          <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3">
+          <div class="mb-3 p-3 bg-light rounded-3 border">
+            <span class="text-xs text-muted d-block text-uppercase fw-bold mb-1">Desk 1 &bull; Sales & Site Visits</span>
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="fw-bold text-dark">+91 80080 07062</span>
+              <div class="d-flex gap-2">
+                <a href="tel:+918008007062" class="btn btn-sm btn-primary py-1 px-2" title="Call"><i class="bi bi-telephone-fill"></i></a>
+                <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-sm btn-success py-1 px-2" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-light rounded-3 border">
+            <span class="text-xs text-muted d-block text-uppercase fw-bold mb-1">Desk 2 &bull; Advisory & Support</span>
+            <div class="d-flex align-items-center justify-content-between">
+              <span class="fw-bold text-dark">+91 90090 08014</span>
+              <div class="d-flex gap-2">
+                <a href="tel:+919009008014" class="btn btn-sm btn-primary py-1 px-2" title="Call"><i class="bi bi-telephone-fill"></i></a>
+                <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number_alt') }}" target="_blank" rel="noopener" class="btn btn-sm btn-success py-1 px-2" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   {{-- Footer Component --}}
