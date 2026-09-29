@@ -273,67 +273,6 @@
   </div>
 </section>
 
-{{-- EXCLUSIVE PROPERTY INVENTORY SECTION --}}
-<section class="hm-section bg-slate-50">
-  <div class="container">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5">
-      <div>
-        <span class="hm-badge"><i class="bi bi-houses"></i> EXCLUSIVE PROPERTY INVENTORY</span>
-        <h2 class="hm-section-title mb-0">Featured Apartments, Plotted Estates & Managed Farmland</h2>
-      </div>
-      <div class="mt-3 mt-md-0">
-        <a href="{{ route('products.index') }}" class="hm-btn hm-btn-outline">
-          View All Properties <i class="bi bi-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-
-    <div class="row g-4">
-      @foreach($featuredProducts as $prod)
-        <div class="col-lg-4 col-md-6">
-          <div class="hm-card">
-            <div class="hm-card-img-wrap">
-              <img src="{{ $prod->image_url }}" alt="{{ $prod->name }}" loading="lazy">
-              @if($prod->category)
-                <span class="hm-card-badge">{{ $prod->category->name }}</span>
-              @endif
-            </div>
-            <div class="hm-card-body">
-              <h3 class="hm-card-title">
-                <a href="{{ route('products.show', $prod->slug) }}">{{ $prod->name }}</a>
-              </h3>
-              <p class="hm-card-desc">{{ Str::limit($prod->short_description, 110) }}</p>
-              
-              @if(!empty($prod->specifications) && is_array($prod->specifications))
-                <div class="bg-light p-2 rounded mb-3 text-xs text-slate-600">
-                  @php $firstSpec = array_slice($prod->specifications, 0, 2, true); @endphp
-                  @foreach($firstSpec as $k => $v)
-                    <div class="d-flex justify-content-between">
-                      <span class="fw-semibold">{{ $k }}:</span>
-                      <span>{{ $v }}</span>
-                    </div>
-                  @endforeach
-                </div>
-              @endif
-
-              <div class="hm-card-footer">
-                <span class="fw-bold text-warning text-sm">{{ $prod->price_range ?? 'Price on Application' }}</span>
-                <div class="d-flex gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-warning" onclick="openEnquiryModal('product', '{{ $prod->id }}', '{{ addslashes($prod->name) }}')">
-                    Inquire Now
-                  </button>
-                  <a href="{{ route('products.show', $prod->slug) }}" class="btn btn-sm btn-primary">
-                    View Property <i class="bi bi-chevron-right text-xs"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      @endforeach
-    </div>
-  </div>
-</section>
 
 {{-- SERVICES SECTION --}}
 <section class="hm-section hm-section-dark">
