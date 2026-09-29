@@ -1,9 +1,27 @@
 /**
- * HarshMais Global Enterprises - Corporate Core JavaScript
+ * Mais Agro House - Corporate Core JavaScript
  * Native Vanilla JS - Zero runtime blockers
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+  // 0. Hero Video Autoplay Handler (graceful fallback for mobile)
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    const playPromise = heroVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(function () {
+        // Autoplay blocked — poster image will show as fallback
+        heroVideo.style.display = 'none';
+        // Show fallback static image
+        const fallbackImg = heroVideo.querySelector('img.hm-hero-img-bg');
+        if (fallbackImg) {
+          heroVideo.parentNode.insertBefore(fallbackImg, heroVideo);
+          fallbackImg.style.display = 'block';
+        }
+      });
+    }
+  }
+
   // 1. Sticky Navbar Scroll State
   const header = document.querySelector('.hm-header');
   if (header) {
