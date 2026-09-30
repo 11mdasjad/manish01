@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Gallery extends Model
 {
@@ -33,12 +33,6 @@ class Gallery extends Model
 
     public function getImageUrlAttribute(): string
     {
-        if ($this->image && file_exists(public_path('storage/' . $this->image))) {
-            return asset('storage/' . $this->image);
-        }
-        if ($this->image && Str::startsWith($this->image, ['http://', 'https://', '/images'])) {
-            return $this->image;
-        }
-        return asset('images/placeholder-gallery.jpg');
+        return MediaHelper::resolve($this->image, 'images/placeholder-gallery.jpg');
     }
 }

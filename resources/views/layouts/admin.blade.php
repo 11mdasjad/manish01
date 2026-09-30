@@ -23,7 +23,7 @@
   <aside class="hm-admin-sidebar" id="adminSidebar">
     <div class="p-3 border-bottom border-white-10 text-center">
       <a href="{{ route('admin.dashboard') }}">
-        <img src="{{ asset('images/logo.png') }}" height="54" alt="Logo" class="rounded-2 shadow-sm">
+        <img src="{{ \App\Support\MediaHelper::resolve(\App\Models\Setting::get('site_logo'), 'images/logo.png') }}" height="54" alt="Logo" class="rounded-2 shadow-sm" style="max-height: 54px; width: auto; object-fit: contain;">
       </a>
       <div class="mt-2 text-xs text-warning fw-bold text-uppercase letter-spacing-1">Executive Control Center</div>
     </div>
@@ -113,7 +113,7 @@
 
         <div class="dropdown">
           <button class="btn btn-light dropdown-toggle d-flex align-items-center gap-2 border" type="button" data-bs-toggle="dropdown">
-            <img src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=0f172a&color=fff' }}" alt="Avatar" class="rounded-circle" width="28" height="28">
+            <img src="{{ Auth::user()->avatar_url }}" alt="Avatar" class="rounded-circle object-fit-cover" width="28" height="28">
             <span class="text-sm fw-semibold">{{ Auth::user()->name }}</span>
           </button>
           <ul class="dropdown-menu dropdown-menu-end border shadow-sm">

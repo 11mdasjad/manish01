@@ -14,7 +14,7 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-3 p-4 bg-white max-w-2xl">
-  <form action="{{ route('admin.testimonials.update', $testimonial->id) }}" method="POST">
+  <form action="{{ route('admin.testimonials.update', $testimonial->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -49,15 +49,29 @@
       <textarea name="content" rows="4" class="form-control" required>{{ old('content', $testimonial->content) }}</textarea>
     </div>
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-8">
-        <label class="form-label text-xs fw-bold">Avatar / Portrait URL</label>
-        <input type="url" name="avatar_url" class="form-control form-control-sm" value="{{ old('avatar_url', $testimonial->avatar) }}">
+    <div class="mb-3">
+      <label class="form-label text-xs fw-bold">Client Portrait / Avatar</label>
+      @if($testimonial->avatar)
+        <div class="mb-2 d-flex align-items-center gap-2">
+          <img src="{{ $testimonial->avatar_url }}" alt="Preview" class="rounded-circle border object-fit-cover" style="width: 48px; height: 48px;">
+          <span class="text-xs text-muted font-monospace text-truncate" style="max-width: 300px;">{{ $testimonial->avatar }}</span>
+        </div>
+      @endif
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Upload New Avatar File</label>
+          <input type="file" name="avatar_file" class="form-control" accept="image/*">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Or Avatar URL / Path</label>
+          <input type="text" name="avatar_url" class="form-control" value="{{ old('avatar_url', $testimonial->avatar) }}" placeholder="e.g. /images/team/member.jpg">
+        </div>
       </div>
-      <div class="col-md-4">
-        <label class="form-label text-xs fw-bold">Sort Order</label>
-        <input type="number" name="order" class="form-control form-control-sm" value="{{ old('order', $testimonial->order) }}">
-      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label text-xs fw-bold">Sort Order</label>
+      <input type="number" name="order" class="form-control form-control-sm" value="{{ old('order', $testimonial->order) }}" style="max-width: 150px;">
     </div>
 
     <div class="form-check form-switch mb-4">

@@ -28,13 +28,13 @@
           <div class="col-sm-6">
             <div class="p-3 bg-light rounded-3 border-start border-4 border-warning">
               <h6 class="fw-bold mb-1">Head Office</h6>
-              <p class="text-xs text-muted mb-0">Patia, Raghunathpur, Nandankanan Road, Bhubaneswar 751024.</p>
+              <p class="text-xs text-muted mb-0">{{ \App\Models\Setting::get('contact_address', 'Patia, Raghunathpur, Nandankanan Road, Bhubaneswar 751024.') }}</p>
             </div>
           </div>
           <div class="col-sm-6">
             <div class="p-3 bg-light rounded-3 border-start border-4 border-primary">
               <h6 class="fw-bold mb-1">Key Landmark</h6>
-              <p class="text-xs text-muted mb-0">Near Punjab National Bank, Raghunathpur, Nandankanan Road.</p>
+              <p class="text-xs text-muted mb-0">{{ \App\Models\Setting::get('contact_landmark', 'Near Punjab National Bank, Raghunathpur, Nandankanan Road.') }}</p>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
           <img src="{{ asset('images/maisagro/about-us.webp') }}" alt="Mais Agro House Real Estate Bhubaneswar" class="img-fluid rounded-4 shadow-xl">
           <div class="position-absolute bottom-0 end-0 bg-white p-4 rounded-3 shadow-lg m-4 border d-none d-md-block" style="max-width: 240px;">
             <div class="d-flex align-items-center gap-3">
-              <div class="hm-stat-number text-warning mb-0">14+</div>
+              <div class="hm-stat-number text-warning mb-0">{{ \App\Models\Setting::get('stat_years', '14+') }}</div>
               <div>
                 <span class="fw-bold d-block text-dark">Years of</span>
                 <span class="text-xs text-muted">Real Estate Trust</span>

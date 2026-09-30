@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -52,19 +53,14 @@ class Blog extends Model
 
     public function getImageUrlAttribute(): string
     {
-        if ($this->featured_image && file_exists(public_path('storage/' . $this->featured_image))) {
-            return asset('storage/' . $this->featured_image);
-        }
-        if ($this->featured_image && Str::startsWith($this->featured_image, ['http://', 'https://', '/images'])) {
-            return $this->featured_image;
-        }
-        return asset('images/placeholder-blog.jpg');
+        return MediaHelper::resolve($this->featured_image, 'images/placeholder-blog.jpg');
     }
 
     public static function generateSlug(string $title): string
     {
         $slug = Str::slug($title);
         $count = static::where('slug', 'like', "{$slug}%")->count();
-        return $count ? "{$slug}-" . ($count + 1) : $slug;
+
+        return $count ? "{$slug}-".($count + 1) : $slug;
     }
 }

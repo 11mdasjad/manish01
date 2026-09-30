@@ -22,12 +22,12 @@
         </div>
         <div>
           <span class="badge bg-warning text-dark text-uppercase fw-bold px-3 py-2 mb-3 rounded-pill letter-spacing-1">
-            <i class="bi bi-geo-alt-fill me-1"></i> Bhubaneswar's Premier Real Estate
+            <i class="bi bi-geo-alt-fill me-1"></i> {{ \App\Models\Setting::get('hero_badge', "Bhubaneswar's Premier Real Estate") }}
           </span>
         </div>
-        <h1 class="hm-video-title">Building The Homes Of Your Tomorrow.</h1>
+        <h1 class="hm-video-title">{{ \App\Models\Setting::get('hero_title', 'Building The Homes Of Your Tomorrow.') }}</h1>
         <p class="hm-video-desc">
-          MAIS AGRO HOUSE brings you exquisite residential apartments, DTCP-approved gated plotted communities, and fertile organic farmlands across Bhubaneswar's prime growth corridors. 100% clear titles & peace of mind.
+          {{ \App\Models\Setting::get('hero_subtitle', "MAIS AGRO HOUSE brings you exquisite residential apartments, DTCP-approved gated plotted communities, and fertile organic farmlands across Bhubaneswar's prime growth corridors. 100% clear titles & peace of mind.") }}
         </p>
         <div class="pt-3 d-flex flex-wrap justify-content-center gap-3 hm-hero-btns">
           <a href="#featured-projects" class="hm-btn-learn-more">
@@ -48,32 +48,32 @@
     <div class="row g-3 g-md-4 justify-content-center">
       <div class="col-6 col-lg-3">
         <div class="hm-stat-box">
-          <div class="hm-stat-number hm-counter" data-target="14+">
-            14+
+          <div class="hm-stat-number hm-counter" data-target="{{ \App\Models\Setting::get('stat_years', '14+') }}">
+            {{ \App\Models\Setting::get('stat_years', '14+') }}
           </div>
           <div class="hm-stat-label">Years Real Estate Heritage</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="hm-stat-box">
-          <div class="hm-stat-number hm-counter" data-target="1.8M+">
-            1.8M+ Sq.Ft
+          <div class="hm-stat-number hm-counter" data-target="{{ \App\Models\Setting::get('stat_projects', '1.8M+ Sq.Ft') }}">
+            {{ \App\Models\Setting::get('stat_projects', '1.8M+ Sq.Ft') }}
           </div>
           <div class="hm-stat-label">Developed & Handed Over</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="hm-stat-box">
-          <div class="hm-stat-number hm-counter" data-target="100%">
-            100%
+          <div class="hm-stat-number hm-counter" data-target="{{ \App\Models\Setting::get('stat_tonnage', '100%') }}">
+            {{ \App\Models\Setting::get('stat_tonnage', '100%') }}
           </div>
           <div class="hm-stat-label">Verified Legal Clear Titles</div>
         </div>
       </div>
       <div class="col-6 col-lg-3">
         <div class="hm-stat-box">
-          <div class="hm-stat-number hm-counter" data-target="650+">
-            650+
+          <div class="hm-stat-number hm-counter" data-target="{{ \App\Models\Setting::get('stat_clients', '650+') }}">
+            {{ \App\Models\Setting::get('stat_clients', '650+') }}
           </div>
           <div class="hm-stat-label">Happy Homeowners & Investors</div>
         </div>
@@ -154,7 +154,7 @@
 
     <div class="row g-4" id="projectContainer">
       @forelse($featuredProjects as $proj)
-        <div class="col-lg-4 col-md-6 hm-project-item" data-category="completed" data-status="completed">
+        <div class="col-lg-4 col-md-6 hm-project-item" data-category="{{ $proj->status ? 'completed' : 'ongoing' }}" data-status="{{ $proj->status ? 'completed' : 'ongoing' }}">
           <div class="hm-card position-relative">
             <span class="hm-project-badge badge-few-left">{{ $proj->sector ?? 'Verified Property' }}</span>
             <div class="hm-card-img-wrap" style="aspect-ratio: 16/10;">
@@ -178,7 +178,7 @@
                 <strong>Project Sector:</strong> {{ $proj->sector ?? 'Residential' }} • Legal Verified
               </div>
               <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
-                <span class="text-xs text-muted">Status: <strong class="text-success">Available</strong></span>
+                <span class="text-xs text-muted">Status: <strong class="{{ $proj->status ? 'text-success' : 'text-warning' }}">{{ $proj->status ? 'Completed' : 'Under Development' }}</strong></span>
                 <a href="{{ route('projects.show', $proj->slug) }}" class="btn btn-sm btn-outline-primary">
                   View Project <i class="bi bi-arrow-right text-xs"></i>
                 </a>

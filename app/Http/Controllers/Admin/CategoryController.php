@@ -26,6 +26,7 @@ class CategoryController extends Controller
     public function create(): View
     {
         $parentCategories = Category::whereNull('parent_id')->get();
+
         return view('admin.categories.create', compact('parentCategories'));
     }
 
@@ -36,10 +37,16 @@ class CategoryController extends Controller
             'type' => ['required', 'string', 'in:product,service,project,blog,gallery'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'string', 'max:1000'],
+            'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'parent_id' => ['nullable', 'exists:categories,id'],
             'order' => ['nullable', 'integer'],
             'is_active' => ['nullable', 'boolean'],
         ]);
+
+        $imagePath = $validated['image'] ?? null;
+        if ($request->hasFile('image_file')) {
+            $imagePath = $request->file('image_file')->store('categories', 'public');
+        }
 
         $slug = Category::generateSlug($validated['name']);
 
@@ -48,7 +55,7 @@ class CategoryController extends Controller
             'slug' => $slug,
             'type' => $validated['type'],
             'description' => $validated['description'] ?? null,
-            'image' => $validated['image'] ?? null,
+            'image' => $imagePath,
             'parent_id' => $validated['parent_id'] ?? null,
             'order' => $validated['order'] ?? 0,
             'is_active' => $request->has('is_active'),
@@ -60,6 +67,7 @@ class CategoryController extends Controller
     public function edit(Category $category): View
     {
         $parentCategories = Category::whereNull('parent_id')->where('id', '!=', $category->id)->get();
+
         return view('admin.categories.edit', compact('category', 'parentCategories'));
     }
 
@@ -70,16 +78,24 @@ class CategoryController extends Controller
             'type' => ['required', 'string', 'in:product,service,project,blog,gallery'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'string', 'max:1000'],
+            'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'parent_id' => ['nullable', 'exists:categories,id'],
             'order' => ['nullable', 'integer'],
             'is_active' => ['nullable', 'boolean'],
         ]);
 
+        $imagePath = $category->image;
+        if ($request->hasFile('image_file')) {
+            $imagePath = $request->file('image_file')->store('categories', 'public');
+        } elseif (! empty($validated['image'])) {
+            $imagePath = $validated['image'];
+        }
+
         $category->update([
             'name' => $validated['name'],
             'type' => $validated['type'],
             'description' => $validated['description'] ?? null,
-            'image' => $validated['image'] ?? null,
+            'image' => $imagePath,
             'parent_id' => $validated['parent_id'] ?? null,
             'order' => $validated['order'] ?? 0,
             'is_active' => $request->has('is_active'),
@@ -91,6 +107,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
+
         return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

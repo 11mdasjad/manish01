@@ -3,7 +3,7 @@
   <nav class="navbar navbar-expand-lg navbar-light py-2">
     <div class="container">
       <a class="navbar-brand hm-navbar-brand d-flex align-items-center" href="{{ route('home') }}" aria-label="Home">
-        <img src="{{ asset('images/logo.png') }}" alt="Mais Agro House Logo" class="hm-brand-logo" height="52" style="max-height: 52px; width: auto; max-width: 240px; object-fit: contain;">
+        <img src="{{ \App\Support\MediaHelper::resolve(\App\Models\Setting::get('site_logo'), 'images/logo.png') }}" alt="{{ \App\Models\Setting::get('site_name', 'Mais Agro House') }} Logo" class="hm-brand-logo" height="52" style="max-height: 52px; width: auto; max-width: 240px; object-fit: contain;">
       </a>
 
       {{-- Mobile Toggle Button --}}
@@ -27,10 +27,12 @@
             <ul class="dropdown-menu border-0 shadow-lg py-2">
               <li><a class="dropdown-item fw-semibold" href="{{ route('services.index') }}">All Real Estate Services</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{{ route('services.show', 'legally-verified-property-due-diligence') }}">Legally Verified Due Diligence</a></li>
-              <li><a class="dropdown-item" href="{{ route('services.show', 'support-from-inquiry-to-registration') }}">Inquiry to Registration Support</a></li>
-              <li><a class="dropdown-item" href="{{ route('services.show', 'guided-site-visits-layout-inspections') }}">Guided Site Visits & Tours</a></li>
-              <li><a class="dropdown-item" href="{{ route('services.show', 'farmland-investment-strategic-land-advisory') }}">Farmland & Land Banking Advisory</a></li>
+              @php $navServices = \App\Models\Service::active()->orderBy('order')->take(6)->get(); @endphp
+              @forelse($navServices as $ns)
+                <li><a class="dropdown-item" href="{{ route('services.show', $ns->slug) }}">{{ $ns->title }}</a></li>
+              @empty
+                <li><a class="dropdown-item text-muted" href="{{ route('services.index') }}">Explore Services</a></li>
+              @endforelse
             </ul>
           </li>
           <li class="nav-item">
@@ -43,10 +45,12 @@
             <ul class="dropdown-menu border-0 shadow-lg py-2">
               <li><a class="dropdown-item fw-semibold" href="{{ route('products.index') }}">All Properties & Land</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="{{ route('products.index', ['category' => 'apartments-residential']) }}">Apartments & Residential</a></li>
-              <li><a class="dropdown-item" href="{{ route('products.index', ['category' => 'residential-plots']) }}">Residential Plots</a></li>
-              <li><a class="dropdown-item" href="{{ route('products.index', ['category' => 'farm-land-investment']) }}">Farm Land Investment</a></li>
-              <li><a class="dropdown-item" href="{{ route('products.index', ['category' => 'investment-properties']) }}">Commercial & Investment Land</a></li>
+              @php $navPropertyCats = \App\Models\Category::where('type', 'product')->where('is_active', true)->orderBy('order')->get(); @endphp
+              @forelse($navPropertyCats as $npc)
+                <li><a class="dropdown-item" href="{{ route('products.index', ['category' => $npc->slug]) }}">{{ $npc->name }}</a></li>
+              @empty
+                <li><a class="dropdown-item" href="{{ route('products.index') }}">All Listings</a></li>
+              @endforelse
             </ul>
           </li>
           <li class="nav-item">
@@ -62,7 +66,7 @@
 
         <div class="d-flex align-items-center gap-2">
           <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-success fw-bold d-none d-xl-flex align-items-center gap-1 rounded-pill px-3 py-1 text-xs" title="Chat on WhatsApp">
-            <i class="bi bi-whatsapp"></i> +91 80080 07062
+            <i class="bi bi-whatsapp"></i> {{ \App\Models\Setting::get('whatsapp_number', '+91 80080 07062') }}
           </a>
           <a href="{{ route('contact.index') }}" class="hm-btn-red">
             CONTACT US
@@ -77,7 +81,7 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="hmMobileMenu" aria-labelledby="hmMobileMenuLabel">
   <div class="offcanvas-header border-bottom">
     <h5 class="offcanvas-title" id="hmMobileMenuLabel">
-      <img src="{{ asset('images/logo.png') }}" height="48" alt="Logo" class="rounded-2 shadow-sm">
+      <img src="{{ \App\Support\MediaHelper::resolve(\App\Models\Setting::get('site_logo'), 'images/logo.png') }}" height="48" alt="{{ \App\Models\Setting::get('site_name', 'Mais Agro House') }} Logo" class="rounded-2 shadow-sm" style="max-height: 48px; width: auto; object-fit: contain;">
     </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -98,14 +102,14 @@
       <button class="hm-btn hm-btn-gold w-100" data-bs-toggle="modal" data-bs-target="#enquiryModal">
         <i class="bi bi-file-earmark-text"></i> Book Guided Site Tour
       </button>
-      <a href="tel:+918008007062" class="hm-btn hm-btn-primary w-100">
-        <i class="bi bi-telephone-fill"></i> Call Desk 1: +91 80080 07062
+      <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone', '918008007062') }}" class="hm-btn hm-btn-primary w-100">
+        <i class="bi bi-telephone-fill"></i> Call Desk 1: {{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }}
       </a>
-      <a href="tel:+919009008014" class="hm-btn hm-btn-outline-dark w-100">
-        <i class="bi bi-phone-fill"></i> Call Desk 2: +91 90090 08014
+      <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone_alt', '919009008014') }}" class="hm-btn hm-btn-outline-dark w-100">
+        <i class="bi bi-phone-fill"></i> Call Desk 2: {{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }}
       </a>
       <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="btn btn-success w-100 fw-bold py-2">
-        <i class="bi bi-whatsapp me-1"></i> WhatsApp: +91 80080 07062
+        <i class="bi bi-whatsapp me-1"></i> WhatsApp: {{ \App\Models\Setting::get('whatsapp_number', '+91 80080 07062') }}
       </a>
     </div>
 

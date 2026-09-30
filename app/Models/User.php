@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,5 +40,10 @@ class User extends Authenticatable
     public function isAdmin(): bool
     {
         return $this->role === 'admin' || $this->role === 'superadmin';
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        return MediaHelper::resolve($this->avatar, 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&background=0f172a&color=fff');
     }
 }

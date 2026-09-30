@@ -14,7 +14,7 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-3 p-4 bg-white max-w-2xl">
-  <form action="{{ route('admin.clients.update', $client->id) }}" method="POST">
+  <form action="{{ route('admin.clients.update', $client->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -31,6 +31,26 @@
       <div class="col-md-6">
         <label class="form-label text-xs fw-bold">Website URL</label>
         <input type="url" name="website_url" class="form-control" value="{{ old('website_url', $client->website_url) }}">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-xs fw-bold">Client / Partner Logo</label>
+      @if($client->logo)
+        <div class="mb-2 d-flex align-items-center gap-2">
+          <img src="{{ $client->logo_url }}" alt="Logo Preview" class="rounded border p-1 bg-light object-fit-contain" style="width: 80px; height: 50px;">
+          <span class="text-xs text-muted font-monospace text-truncate" style="max-width: 300px;">{{ $client->logo }}</span>
+        </div>
+      @endif
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Upload New Logo File</label>
+          <input type="file" name="logo_file" class="form-control" accept="image/*">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Or Logo URL / Path</label>
+          <input type="text" name="logo" class="form-control" value="{{ old('logo', $client->logo) }}" placeholder="e.g. /images/clients/logo.png">
+        </div>
       </div>
     </div>
 

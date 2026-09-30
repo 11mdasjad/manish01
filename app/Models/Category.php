@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,10 +54,16 @@ class Category extends Model
         return $this->hasMany(Project::class);
     }
 
+    public function getImageUrlAttribute(): string
+    {
+        return MediaHelper::resolve($this->image, 'images/properties/residential-plots.jpg');
+    }
+
     public static function generateSlug(string $name): string
     {
         $slug = Str::slug($name);
         $count = static::where('slug', 'like', "{$slug}%")->count();
-        return $count ? "{$slug}-" . ($count + 1) : $slug;
+
+        return $count ? "{$slug}-".($count + 1) : $slug;
     }
 }

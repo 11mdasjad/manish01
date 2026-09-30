@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class TeamMember extends Model
 {
@@ -35,12 +35,6 @@ class TeamMember extends Model
 
     public function getImageUrlAttribute(): string
     {
-        if ($this->image && file_exists(public_path('storage/' . $this->image))) {
-            return asset('storage/' . $this->image);
-        }
-        if ($this->image && Str::startsWith($this->image, ['http://', 'https://', '/images'])) {
-            return $this->image;
-        }
-        return asset('images/placeholder-team.jpg');
+        return MediaHelper::resolve($this->image, 'images/placeholder-team.jpg');
     }
 }

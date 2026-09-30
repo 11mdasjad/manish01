@@ -28,8 +28,8 @@
           <div class="row g-2 mb-4">
             @foreach($project->gallery as $gImg)
               <div class="col-6 col-md-4">
-                <a href="{{ asset(ltrim($gImg, '/')) }}" class="hm-lightbox-trigger d-block rounded overflow-hidden border" style="height: 120px;">
-                  <img src="{{ asset(ltrim($gImg, '/')) }}" alt="Gallery Image" class="w-100 h-100 object-fit-cover">
+                <a href="{{ \App\Support\MediaHelper::resolve($gImg) }}" class="hm-lightbox-trigger d-block rounded overflow-hidden border" style="height: 120px;">
+                  <img src="{{ \App\Support\MediaHelper::resolve($gImg) }}" alt="Gallery Image" class="w-100 h-100 object-fit-cover">
                 </a>
               </div>
             @endforeach

@@ -16,9 +16,14 @@
     <div class="card border-0 shadow-sm rounded-3 p-4 bg-white h-100">
       <h5 class="fw-bold mb-3 border-bottom pb-2">Profile Information</h5>
 
-      <form action="{{ route('admin.profile.update') }}" method="POST">
+      <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        <div class="mb-3 d-flex align-items-center gap-3">
+          <img src="{{ $user->avatar_url }}" alt="{{ $user->name }}" class="rounded-circle border" style="width: 56px; height: 56px; object-fit: cover;">
+          <span class="text-xs text-muted">Current Executive Portrait</span>
+        </div>
 
         <div class="mb-3">
           <label class="form-label text-xs fw-bold">Full Name</label>
@@ -35,9 +40,15 @@
           <input type="tel" name="phone" class="form-control" value="{{ old('phone', $user->phone) }}">
         </div>
 
-        <div class="mb-4">
-          <label class="form-label text-xs fw-bold">Avatar Image Web URL</label>
-          <input type="url" name="avatar" class="form-control" value="{{ old('avatar', $user->avatar) }}">
+        <div class="row g-2 mb-4">
+          <div class="col-sm-6">
+            <label class="form-label text-xs fw-bold">Upload Local Photo</label>
+            <input type="file" name="avatar_file" class="form-control form-control-sm" accept="image/*">
+          </div>
+          <div class="col-sm-6">
+            <label class="form-label text-xs fw-bold">Or Avatar Image URL</label>
+            <input type="text" name="avatar" class="form-control form-control-sm" value="{{ old('avatar', $user->avatar) }}" placeholder="https://...">
+          </div>
         </div>
 
         <button type="submit" class="hm-btn hm-btn-primary fw-bold">

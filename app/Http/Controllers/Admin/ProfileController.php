@@ -15,6 +15,7 @@ class ProfileController extends Controller
     public function edit(): View
     {
         $user = Auth::user();
+
         return view('admin.profile.edit', compact('user'));
     }
 
@@ -24,14 +25,25 @@ class ProfileController extends Controller
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'phone' => ['nullable', 'string', 'max:30'],
-            'avatar' => ['nullable', 'url', 'max:1000'],
+            'avatar' => ['nullable', 'string', 'max:1000'],
+            'avatar_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:4096'],
         ]);
 
-        $user->update($validated);
+        $avatar = $validated['avatar'] ?? $user->avatar;
+        if ($request->hasFile('avatar_file')) {
+            $avatar = $request->file('avatar_file')->store('avatars', 'public');
+        }
 
-        return redirect()->back()->with('success', 'Profile information updated successfully.');
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? null,
+            'avatar' => $avatar,
+        ]);
+
+        return redirect()->route('admin.profile.edit')->with('success', 'Profile information updated successfully.');
     }
 
     public function updatePassword(Request $request): RedirectResponse

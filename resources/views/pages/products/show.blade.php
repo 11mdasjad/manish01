@@ -86,7 +86,7 @@
             <div class="d-flex gap-2 overflow-x-auto pb-2">
               <img src="{{ $product->image_url }}" alt="Thumbnail Main" class="rounded border p-1" style="width: 75px; height: 75px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('mainProductImage').src = this.src;">
               @foreach($product->gallery as $gImg)
-                <img src="{{ $gImg }}" alt="Thumbnail Gallery" class="rounded border p-1" style="width: 75px; height: 75px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('mainProductImage').src = this.src;">
+                <img src="{{ \App\Support\MediaHelper::resolve($gImg) }}" alt="Thumbnail Gallery" class="rounded border p-1" style="width: 75px; height: 75px; object-fit: cover; cursor: pointer;" onclick="document.getElementById('mainProductImage').src = this.src;">
               @endforeach
             </div>
           @endif

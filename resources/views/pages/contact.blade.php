@@ -31,15 +31,15 @@
           <ul class="list-unstyled text-sm text-slate-600 mb-0">
             <li class="mb-2">
               <i class="bi bi-telephone-fill text-warning me-2"></i> 
-              <a href="tel:+918008007062" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }} (Desk 1)</a>
+              <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone', '918008007062') }}" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }} (Desk 1)</a>
             </li>
             <li class="mb-2">
               <i class="bi bi-phone-fill text-warning me-2"></i> 
-              <a href="tel:+919009008014" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }} (Desk 2)</a>
+              <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone_alt', '919009008014') }}" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }} (Desk 2)</a>
             </li>
             <li class="mb-2">
               <i class="bi bi-whatsapp text-success me-2"></i> 
-              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">Chat on WhatsApp (+91 80080 07062)</a>
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">Chat on WhatsApp ({{ \App\Models\Setting::get('whatsapp_number', '+91 80080 07062') }})</a>
             </li>
             <li class="mb-0">
               <i class="bi bi-envelope-fill text-warning me-2"></i> 
@@ -61,20 +61,20 @@
               <h4 class="fw-bold mb-0">Patia - Raghunathpur Desk</h4>
             </div>
           </div>
-          <p class="text-slate-600 mb-4">Nandankanan Road, Patia, Bhubaneswar, Odisha 751024 (Landmark: Near Punjab National Bank)</p>
+          <p class="text-slate-600 mb-4">{{ \App\Models\Setting::get('contact_address', 'Nandankanan Road, Patia, Bhubaneswar, Odisha 751024') }}</p>
           
           <ul class="list-unstyled text-sm text-slate-600 mb-0">
             <li class="mb-2">
               <i class="bi bi-telephone-fill text-warning me-2"></i> 
-              <a href="tel:+918008007062" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }}</a>
+              <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone', '918008007062') }}" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }}</a>
             </li>
             <li class="mb-2">
               <i class="bi bi-phone-fill text-warning me-2"></i> 
-              <a href="tel:+919009008014" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }}</a>
+              <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone_alt', '919009008014') }}" class="text-dark fw-semibold text-decoration-none">{{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }}</a>
             </li>
             <li class="mb-2">
               <i class="bi bi-whatsapp text-success me-2"></i> 
-              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number_alt') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">WhatsApp Support (+91 90090 08014)</a>
+              <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number_alt') }}" target="_blank" rel="noopener" class="text-success fw-semibold text-decoration-none">WhatsApp Support ({{ \App\Models\Setting::get('whatsapp_number_alt', '+91 90090 08014') }})</a>
             </li>
             <li class="mb-2"><i class="bi bi-clock-fill text-warning me-2"></i> {{ \App\Models\Setting::get('office_hours', 'Mon - Sun: 09:00 AM - 07:00 PM') }}</li>
             <li class="mb-0">

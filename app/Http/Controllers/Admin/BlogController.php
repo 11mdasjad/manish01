@@ -34,6 +34,7 @@ class BlogController extends Controller
     public function create(): View
     {
         $categories = BlogCategory::all();
+
         return view('admin.blogs.create', compact('categories'));
     }
 
@@ -47,7 +48,7 @@ class BlogController extends Controller
             'author_name' => ['nullable', 'string', 'max:150'],
             'reading_time' => ['nullable', 'string', 'max:50'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'tags_text' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
             'is_published' => ['nullable', 'boolean'],
@@ -61,7 +62,7 @@ class BlogController extends Controller
         }
 
         $tags = [];
-        if (!empty($validated['tags_text'])) {
+        if (! empty($validated['tags_text'])) {
             $tags = array_values(array_filter(array_map('trim', explode(',', $validated['tags_text']))));
         }
 
@@ -90,6 +91,7 @@ class BlogController extends Controller
     public function edit(Blog $blog): View
     {
         $categories = BlogCategory::all();
+
         return view('admin.blogs.edit', compact('blog', 'categories'));
     }
 
@@ -103,7 +105,7 @@ class BlogController extends Controller
             'author_name' => ['nullable', 'string', 'max:150'],
             'reading_time' => ['nullable', 'string', 'max:50'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'tags_text' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
             'is_published' => ['nullable', 'boolean'],
@@ -117,7 +119,7 @@ class BlogController extends Controller
                 Storage::disk('public')->delete($blog->featured_image);
             }
             $imagePath = $request->file('featured_image_file')->store('blogs', 'public');
-        } elseif (!empty($validated['featured_image_url'])) {
+        } elseif (! empty($validated['featured_image_url'])) {
             $imagePath = $validated['featured_image_url'];
         }
 
@@ -128,7 +130,7 @@ class BlogController extends Controller
 
         $isPublished = $request->has('is_published');
         $publishedAt = $blog->published_at;
-        if ($isPublished && !$blog->is_published) {
+        if ($isPublished && ! $blog->is_published) {
             $publishedAt = now();
         }
 

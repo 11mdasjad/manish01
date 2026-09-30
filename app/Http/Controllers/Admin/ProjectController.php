@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Project;
 use App\Models\Category;
+use App\Models\Project;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +19,8 @@ class ProjectController extends Controller
         if ($request->filled('search')) {
             $search = $request->query('search');
             $query->where('title', 'like', "%{$search}%")
-                  ->orWhere('location', 'like', "%{$search}%")
-                  ->orWhere('client_name', 'like', "%{$search}%");
+                ->orWhere('location', 'like', "%{$search}%")
+                ->orWhere('client_name', 'like', "%{$search}%");
         }
 
         $projects = $query->orderBy('order')->latest()->paginate(10)->withQueryString();
@@ -31,6 +31,7 @@ class ProjectController extends Controller
     public function create(): View
     {
         $categories = Category::where('type', 'project')->get();
+
         return view('admin.projects.create', compact('categories'));
     }
 
@@ -49,7 +50,7 @@ class ProjectController extends Controller
             'solution' => ['nullable', 'string'],
             'results' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'is_featured' => ['nullable', 'boolean'],
             'status' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
@@ -87,6 +88,7 @@ class ProjectController extends Controller
     public function edit(Project $project): View
     {
         $categories = Category::where('type', 'project')->get();
+
         return view('admin.projects.edit', compact('project', 'categories'));
     }
 
@@ -105,7 +107,7 @@ class ProjectController extends Controller
             'solution' => ['nullable', 'string'],
             'results' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'is_featured' => ['nullable', 'boolean'],
             'status' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer'],
@@ -117,7 +119,7 @@ class ProjectController extends Controller
                 Storage::disk('public')->delete($project->featured_image);
             }
             $imagePath = $request->file('featured_image_file')->store('projects', 'public');
-        } elseif (!empty($validated['featured_image_url'])) {
+        } elseif (! empty($validated['featured_image_url'])) {
             $imagePath = $validated['featured_image_url'];
         }
 

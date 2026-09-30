@@ -22,9 +22,19 @@ class SettingController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
+        $group = $request->input('group', 'general');
         $inputs = $request->except(['_token', '_method', 'group']);
 
         foreach ($inputs as $key => $value) {
+            if (str_ends_with($key, '_file')) {
+                continue;
+            }
+
+            // If a file is uploaded for this setting key, skip updating with text value
+            if ($request->hasFile("{$key}_file")) {
+                continue;
+            }
+
             $setting = Setting::where('key', $key)->first();
             if ($setting) {
                 $setting->value = $value;
@@ -34,12 +44,33 @@ class SettingController extends Controller
                 Setting::create([
                     'key' => $key,
                     'value' => $value,
-                    'group' => $request->input('group', 'general'),
+                    'group' => $group,
                     'label' => ucwords(str_replace('_', ' ', $key)),
                 ]);
+                Cache::forget("setting_{$key}");
             }
         }
 
-        return redirect()->back()->with('success', 'Corporate website settings updated successfully.');
+        // Also handle any file uploads in settings
+        foreach ($request->allFiles() as $fileKey => $file) {
+            $actualKey = preg_replace('/_file$/', '', $fileKey);
+            $path = $file->store('settings', 'public');
+            $setting = Setting::where('key', $actualKey)->first();
+            if ($setting) {
+                $setting->value = $path;
+                $setting->save();
+            } else {
+                Setting::create([
+                    'key' => $actualKey,
+                    'value' => $path,
+                    'group' => $group,
+                    'label' => ucwords(str_replace('_', ' ', $actualKey)),
+                ]);
+            }
+            Cache::forget("setting_{$actualKey}");
+        }
+
+        return redirect()->route('admin.settings.index', ['group' => $group])
+            ->with('success', ucfirst($group).' settings updated successfully and changes are live.');
     }
 }

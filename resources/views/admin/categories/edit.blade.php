@@ -14,7 +14,7 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-3 p-4 bg-white max-w-2xl">
-  <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+  <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -37,6 +37,26 @@
       <div class="col-md-6">
         <label class="form-label text-xs fw-bold">Sort Order</label>
         <input type="number" name="order" class="form-control" value="{{ old('order', $category->order) }}">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-xs fw-bold">Cover / Thumbnail Image</label>
+      @if($category->image)
+        <div class="mb-2 d-flex align-items-center gap-2">
+          <img src="{{ $category->image_url }}" alt="Preview" class="rounded border object-fit-cover" style="width: 60px; height: 60px;">
+          <span class="text-xs text-muted font-monospace text-truncate" style="max-width: 300px;">{{ $category->image }}</span>
+        </div>
+      @endif
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Upload New Image File</label>
+          <input type="file" name="image_file" class="form-control" accept="image/*">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Or Image URL / Path</label>
+          <input type="text" name="image" class="form-control" value="{{ old('image', $category->image) }}" placeholder="e.g. /images/products/seeds.jpg">
+        </div>
       </div>
     </div>
 

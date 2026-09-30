@@ -13,6 +13,7 @@ class ClientController extends Controller
     public function index(): View
     {
         $clients = Client::orderBy('order')->paginate(12);
+
         return view('admin.clients.index', compact('clients'));
     }
 
@@ -26,15 +27,21 @@ class ClientController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'string', 'max:1000'],
+            'logo_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'website_url' => ['nullable', 'url', 'max:255'],
             'industry' => ['nullable', 'string', 'max:150'],
             'order' => ['nullable', 'integer'],
             'status' => ['nullable', 'boolean'],
         ]);
 
+        $logo = $validated['logo'] ?? null;
+        if ($request->hasFile('logo_file')) {
+            $logo = $request->file('logo_file')->store('clients', 'public');
+        }
+
         Client::create([
             'name' => $validated['name'],
-            'logo' => $validated['logo'] ?? null,
+            'logo' => $logo,
             'website_url' => $validated['website_url'] ?? null,
             'industry' => $validated['industry'] ?? null,
             'order' => $validated['order'] ?? 0,
@@ -54,15 +61,23 @@ class ClientController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'string', 'max:1000'],
+            'logo_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:4096'],
             'website_url' => ['nullable', 'url', 'max:255'],
             'industry' => ['nullable', 'string', 'max:150'],
             'order' => ['nullable', 'integer'],
             'status' => ['nullable', 'boolean'],
         ]);
 
+        $logo = $client->logo;
+        if ($request->hasFile('logo_file')) {
+            $logo = $request->file('logo_file')->store('clients', 'public');
+        } elseif (! empty($validated['logo'])) {
+            $logo = $validated['logo'];
+        }
+
         $client->update([
             'name' => $validated['name'],
-            'logo' => $validated['logo'] ?? $client->logo,
+            'logo' => $logo,
             'website_url' => $validated['website_url'] ?? null,
             'industry' => $validated['industry'] ?? null,
             'order' => $validated['order'] ?? 0,
@@ -75,6 +90,7 @@ class ClientController extends Controller
     public function destroy(Client $client): RedirectResponse
     {
         $client->delete();
+
         return redirect()->route('admin.clients.index')->with('success', 'Client deleted.');
     }
 }

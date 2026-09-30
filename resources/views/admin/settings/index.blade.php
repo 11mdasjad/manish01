@@ -49,7 +49,7 @@
 
   {{-- Settings Form --}}
   <div class="card-body p-4 p-md-5">
-    <form action="{{ route('admin.settings.update') }}" method="POST">
+    <form action="{{ route('admin.settings.update') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <input type="hidden" name="group" value="{{ $group }}">
 
@@ -59,7 +59,24 @@
             <label class="form-label text-xs fw-bold text-dark text-uppercase">
               {{ $s->label ?? ucwords(str_replace('_', ' ', $s->key)) }}
             </label>
-            @if($s->type === 'textarea')
+            @if($s->type === 'image' || str_contains($s->key, 'logo') || str_contains($s->key, 'image'))
+              @if(!empty($s->value))
+                <div class="mb-2 d-flex align-items-center gap-2">
+                  <img src="{{ \App\Support\MediaHelper::resolve($s->value, 'images/logo.png') }}" alt="Preview" class="rounded border p-1 bg-light object-fit-contain" style="max-height: 60px; max-width: 180px;">
+                  <span class="text-xs text-muted font-monospace text-truncate" style="max-width: 320px;">{{ $s->value }}</span>
+                </div>
+              @endif
+              <div class="row g-2">
+                <div class="col-md-6">
+                  <label class="form-label text-xs text-muted mb-1">Upload Image File</label>
+                  <input type="file" name="{{ $s->key }}_file" class="form-control" accept="image/*">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label text-xs text-muted mb-1">Or URL / Local Path</label>
+                  <input type="text" name="{{ $s->key }}" class="form-control" value="{{ old($s->key, $s->value) }}" placeholder="e.g. images/logo.png">
+                </div>
+              </div>
+            @elseif($s->type === 'textarea')
               <textarea name="{{ $s->key }}" rows="3" class="form-control">{{ old($s->key, $s->value) }}</textarea>
             @else
               <input type="text" name="{{ $s->key }}" class="form-control" value="{{ old($s->key, $s->value) }}">

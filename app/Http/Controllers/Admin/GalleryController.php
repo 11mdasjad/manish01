@@ -14,6 +14,7 @@ class GalleryController extends Controller
     public function index(): View
     {
         $items = Gallery::orderBy('order')->paginate(12);
+
         return view('admin.gallery.index', compact('items'));
     }
 
@@ -28,7 +29,7 @@ class GalleryController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:100'],
             'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'image_url' => ['nullable', 'url', 'max:1000'],
+            'image_url' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'order' => ['nullable', 'integer'],
             'status' => ['nullable', 'boolean'],
@@ -66,7 +67,7 @@ class GalleryController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:100'],
             'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
-            'image_url' => ['nullable', 'url', 'max:1000'],
+            'image_url' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'order' => ['nullable', 'integer'],
             'status' => ['nullable', 'boolean'],
@@ -78,7 +79,7 @@ class GalleryController extends Controller
                 Storage::disk('public')->delete($gallery->image);
             }
             $imagePath = $request->file('image_file')->store('gallery', 'public');
-        } elseif (!empty($validated['image_url'])) {
+        } elseif (! empty($validated['image_url'])) {
             $imagePath = $validated['image_url'];
         }
 

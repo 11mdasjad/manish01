@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
 use App\Models\Category;
+use App\Models\Service;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -34,6 +34,7 @@ class ServiceController extends Controller
     public function create(): View
     {
         $categories = Category::where('type', 'service')->get();
+
         return view('admin.services.create', compact('categories'));
     }
 
@@ -47,7 +48,7 @@ class ServiceController extends Controller
             'short_description' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'features_text' => ['nullable', 'string'],
             'benefits_text' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
@@ -63,12 +64,12 @@ class ServiceController extends Controller
         }
 
         $features = [];
-        if (!empty($validated['features_text'])) {
+        if (! empty($validated['features_text'])) {
             $features = array_values(array_filter(array_map('trim', explode("\n", $validated['features_text']))));
         }
 
         $benefits = [];
-        if (!empty($validated['benefits_text'])) {
+        if (! empty($validated['benefits_text'])) {
             $benefits = array_values(array_filter(array_map('trim', explode("\n", $validated['benefits_text']))));
         }
 
@@ -98,6 +99,7 @@ class ServiceController extends Controller
     public function edit(Service $service): View
     {
         $categories = Category::where('type', 'service')->get();
+
         return view('admin.services.edit', compact('service', 'categories'));
     }
 
@@ -111,7 +113,7 @@ class ServiceController extends Controller
             'short_description' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'features_text' => ['nullable', 'string'],
             'benefits_text' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
@@ -127,7 +129,7 @@ class ServiceController extends Controller
                 Storage::disk('public')->delete($service->featured_image);
             }
             $imagePath = $request->file('featured_image_file')->store('services', 'public');
-        } elseif (!empty($validated['featured_image_url'])) {
+        } elseif (! empty($validated['featured_image_url'])) {
             $imagePath = $validated['featured_image_url'];
         }
 
@@ -174,9 +176,9 @@ class ServiceController extends Controller
 
     public function toggleStatus(Service $service): RedirectResponse
     {
-        $service->status = !$service->status;
+        $service->status = ! $service->status;
         $service->save();
 
-        return redirect()->back()->with('success', "Service status changed to " . ($service->status ? 'Active' : 'Inactive') . ".");
+        return redirect()->back()->with('success', 'Service status changed to '.($service->status ? 'Active' : 'Inactive').'.');
     }
 }

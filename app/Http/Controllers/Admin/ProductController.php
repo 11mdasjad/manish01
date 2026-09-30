@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class ProductController extends Controller
@@ -20,7 +19,7 @@ class ProductController extends Controller
         if ($request->filled('search')) {
             $search = $request->query('search');
             $query->where('name', 'like', "%{$search}%")
-                  ->orWhere('sku', 'like', "%{$search}%");
+                ->orWhere('sku', 'like', "%{$search}%");
         }
 
         if ($request->filled('category_id')) {
@@ -40,6 +39,7 @@ class ProductController extends Controller
     public function create(): View
     {
         $categories = Category::where('type', 'product')->get();
+
         return view('admin.products.create', compact('categories'));
     }
 
@@ -54,7 +54,7 @@ class ProductController extends Controller
             'short_description' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'features_text' => ['nullable', 'string'],
             'specifications_json' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
@@ -72,12 +72,12 @@ class ProductController extends Controller
         }
 
         $features = [];
-        if (!empty($validated['features_text'])) {
+        if (! empty($validated['features_text'])) {
             $features = array_values(array_filter(array_map('trim', explode("\n", $validated['features_text']))));
         }
 
         $specifications = null;
-        if (!empty($validated['specifications_json'])) {
+        if (! empty($validated['specifications_json'])) {
             $decoded = json_decode($validated['specifications_json'], true);
             if (json_last_error() === JSON_ERROR_NONE) {
                 $specifications = $decoded;
@@ -112,6 +112,7 @@ class ProductController extends Controller
     public function edit(Product $product): View
     {
         $categories = Category::where('type', 'product')->get();
+
         return view('admin.products.edit', compact('product', 'categories'));
     }
 
@@ -126,7 +127,7 @@ class ProductController extends Controller
             'short_description' => ['nullable', 'string', 'max:1000'],
             'description' => ['nullable', 'string'],
             'featured_image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp,svg', 'max:5120'],
-            'featured_image_url' => ['nullable', 'url', 'max:1000'],
+            'featured_image_url' => ['nullable', 'string', 'max:1000'],
             'features_text' => ['nullable', 'string'],
             'specifications_json' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
@@ -143,7 +144,7 @@ class ProductController extends Controller
                 Storage::disk('public')->delete($product->featured_image);
             }
             $imagePath = $request->file('featured_image_file')->store('products', 'public');
-        } elseif (!empty($validated['featured_image_url'])) {
+        } elseif (! empty($validated['featured_image_url'])) {
             $imagePath = $validated['featured_image_url'];
         }
 
@@ -153,7 +154,7 @@ class ProductController extends Controller
         }
 
         $specifications = $product->specifications;
-        if (!empty($validated['specifications_json'])) {
+        if (! empty($validated['specifications_json'])) {
             $decoded = json_decode($validated['specifications_json'], true);
             if (json_last_error() === JSON_ERROR_NONE) {
                 $specifications = $decoded;
@@ -195,9 +196,9 @@ class ProductController extends Controller
 
     public function toggleStatus(Product $product): RedirectResponse
     {
-        $product->status = !$product->status;
+        $product->status = ! $product->status;
         $product->save();
 
-        return redirect()->back()->with('success', "Product status changed to " . ($product->status ? 'Active' : 'Inactive') . ".");
+        return redirect()->back()->with('success', 'Product status changed to '.($product->status ? 'Active' : 'Inactive').'.');
     }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\MediaHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Client extends Model
 {
@@ -31,12 +31,6 @@ class Client extends Model
 
     public function getLogoUrlAttribute(): string
     {
-        if ($this->logo && file_exists(public_path('storage/' . $this->logo))) {
-            return asset('storage/' . $this->logo);
-        }
-        if ($this->logo && Str::startsWith($this->logo, ['http://', 'https://', '/images'])) {
-            return $this->logo;
-        }
-        return asset('images/placeholder-client.png');
+        return MediaHelper::resolve($this->logo, 'images/placeholder-client.png');
     }
 }

@@ -14,7 +14,7 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-3 p-4 bg-white max-w-2xl">
-  <form action="{{ route('admin.clients.store') }}" method="POST">
+  <form action="{{ route('admin.clients.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="mb-3">
@@ -30,6 +30,20 @@
       <div class="col-md-6">
         <label class="form-label text-xs fw-bold">Website URL</label>
         <input type="url" name="website_url" class="form-control" value="{{ old('website_url') }}" placeholder="https://...">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label text-xs fw-bold">Client / Partner Logo</label>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Upload Logo File</label>
+          <input type="file" name="logo_file" class="form-control" accept="image/*">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Or Logo URL / Path</label>
+          <input type="text" name="logo" class="form-control" value="{{ old('logo') }}" placeholder="e.g. /images/clients/logo.png">
+        </div>
       </div>
     </div>
 

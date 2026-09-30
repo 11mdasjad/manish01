@@ -4,7 +4,7 @@
       {{-- Column 1: Company Profile --}}
       <div class="col-lg-4 col-md-6">
         <div class="mb-4">
-          <img src="{{ asset('images/logo.png') }}" height="76" width="76" alt="Logo" class="rounded-3 shadow" style="object-fit: cover; border: 1px solid rgba(255,255,255,0.18);">
+          <img src="{{ \App\Support\MediaHelper::resolve(\App\Models\Setting::get('site_logo'), 'images/logo.png') }}" height="76" width="76" alt="{{ \App\Models\Setting::get('site_name', 'Mais Agro House') }} Logo" class="rounded-3 shadow" style="object-fit: cover; border: 1px solid rgba(255,255,255,0.18);">
         </div>
         <p class="text-slate-400 mb-4" style="line-height: 1.7;">
           {{ \App\Models\Setting::get('footer_about', 'MAIS AGRO HOUSE is a trusted real estate and land investment company based in Bhubaneswar, Odisha. We deliver premium luxury apartments, DTCP-approved residential plots, and organic farmlands with 100% legal title clearance.') }}
@@ -66,14 +66,14 @@
             <span class="small">{{ \App\Models\Setting::get('office_hours', 'Monday - Sunday: 09:00 AM - 07:00 PM (Site visits open all days)') }}</span>
           </div>
           <div class="pt-2 border-top border-secondary">
-            <a href="tel:+918008007062" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
+            <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone', '918008007062') }}" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
               <i class="bi bi-telephone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone', '+91 80080 07062') }} (Desk 1)
             </a>
-            <a href="tel:+919009008014" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
+            <a href="tel:{{ \App\Models\Setting::getDigits('contact_phone_alt', '919009008014') }}" class="text-slate-300 text-decoration-none hover:text-white small d-block mb-1">
               <i class="bi bi-phone-fill text-warning me-2"></i> {{ \App\Models\Setting::get('contact_phone_alt', '+91 90090 08014') }} (Desk 2)
             </a>
             <a href="{{ \App\Models\Setting::whatsappUrl('whatsapp_number') }}" target="_blank" rel="noopener" class="text-success text-decoration-none hover:text-white small d-block mb-1 fw-semibold">
-              <i class="bi bi-whatsapp me-2"></i> WhatsApp: +91 80080 07062
+              <i class="bi bi-whatsapp me-2"></i> WhatsApp: {{ \App\Models\Setting::get('whatsapp_number', '+91 80080 07062') }}
             </a>
             <a href="mailto:{{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}" class="text-slate-300 text-decoration-none hover:text-white small d-block">
               <i class="bi bi-envelope text-warning me-2"></i> {{ \App\Models\Setting::get('contact_email', 'info@maisagrohouse.com') }}

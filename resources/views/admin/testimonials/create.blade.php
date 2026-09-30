@@ -14,7 +14,7 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-3 p-4 bg-white max-w-2xl">
-  <form action="{{ route('admin.testimonials.store') }}" method="POST">
+  <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <div class="row g-3 mb-3">
@@ -48,15 +48,23 @@
       <textarea name="content" rows="4" class="form-control" placeholder="Client quote detailing reliability, grain quality, or engineering execution..." required>{{ old('content') }}</textarea>
     </div>
 
-    <div class="row g-3 mb-4">
-      <div class="col-md-8">
-        <label class="form-label text-xs fw-bold">Avatar / Portrait URL</label>
-        <input type="url" name="avatar_url" class="form-control form-control-sm" value="{{ old('avatar_url') }}" placeholder="https://...">
+    <div class="mb-3">
+      <label class="form-label text-xs fw-bold">Client Portrait / Avatar</label>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Upload Avatar File</label>
+          <input type="file" name="avatar_file" class="form-control" accept="image/*">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-xs text-muted">Or Avatar URL / Path</label>
+          <input type="text" name="avatar_url" class="form-control" value="{{ old('avatar_url') }}" placeholder="e.g. /images/team/member.jpg">
+        </div>
       </div>
-      <div class="col-md-4">
-        <label class="form-label text-xs fw-bold">Sort Order</label>
-        <input type="number" name="order" class="form-control form-control-sm" value="{{ old('order', 0) }}">
-      </div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label text-xs fw-bold">Sort Order</label>
+      <input type="number" name="order" class="form-control form-control-sm" value="{{ old('order', 0) }}" style="max-width: 150px;">
     </div>
 
     <div class="form-check form-switch mb-4">

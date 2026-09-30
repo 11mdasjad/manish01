@@ -14,6 +14,7 @@ class TeamController extends Controller
     public function index(): View
     {
         $members = TeamMember::orderBy('order')->paginate(12);
+
         return view('admin.team.index', compact('members'));
     }
 
@@ -30,7 +31,7 @@ class TeamController extends Controller
             'department' => ['nullable', 'string', 'max:150'],
             'bio' => ['nullable', 'string'],
             'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:4096'],
-            'image_url' => ['nullable', 'url', 'max:1000'],
+            'image_url' => ['nullable', 'string', 'max:1000'],
             'linkedin_url' => ['nullable', 'url', 'max:255'],
             'twitter_url' => ['nullable', 'url', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
@@ -72,7 +73,7 @@ class TeamController extends Controller
             'department' => ['nullable', 'string', 'max:150'],
             'bio' => ['nullable', 'string'],
             'image_file' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:4096'],
-            'image_url' => ['nullable', 'url', 'max:1000'],
+            'image_url' => ['nullable', 'string', 'max:1000'],
             'linkedin_url' => ['nullable', 'url', 'max:255'],
             'twitter_url' => ['nullable', 'url', 'max:255'],
             'email' => ['nullable', 'email', 'max:255'],
@@ -86,7 +87,7 @@ class TeamController extends Controller
                 Storage::disk('public')->delete($team->image);
             }
             $imagePath = $request->file('image_file')->store('team', 'public');
-        } elseif (!empty($validated['image_url'])) {
+        } elseif (! empty($validated['image_url'])) {
             $imagePath = $validated['image_url'];
         }
 
