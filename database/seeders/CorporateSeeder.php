@@ -2,46 +2,26 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\Category;
-use App\Models\Product;
-use App\Models\Service;
-use App\Models\Project;
-use App\Models\TeamMember;
-use App\Models\Testimonial;
 use App\Models\Client;
 use App\Models\Gallery;
-use App\Models\BlogCategory;
-use App\Models\Blog;
+use App\Models\Product;
+use App\Models\Project;
+use App\Models\Service;
 use App\Models\Setting;
-use App\Models\ContactMessage;
-use App\Models\Enquiry;
-
-use Illuminate\Support\Facades\Schema;
+use App\Models\TeamMember;
+use App\Models\Testimonial;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class CorporateSeeder extends Seeder
 {
     public function run(): void
     {
-        // Disable foreign key checks for clean wiping of demo data
-        Schema::disableForeignKeyConstraints();
-        Product::truncate();
-        Service::truncate();
-        Project::truncate();
-        Category::truncate();
-        Testimonial::truncate();
-        TeamMember::truncate();
-        Client::truncate();
-        Gallery::truncate();
-        Blog::truncate();
-        BlogCategory::truncate();
-        Setting::truncate();
-        Schema::enableForeignKeyConstraints();
-
-        // 1. Executive Admin Users
+        // 1. Executive Admin Users (Ensured first so credentials always exist)
         User::updateOrCreate(
             ['email' => 'admin@maisagrohouse.com'],
             [
@@ -65,6 +45,23 @@ class CorporateSeeder extends Seeder
                 'is_active' => true,
             ]
         );
+
+        // Safe cleanup of demo content using delete() to avoid PostgreSQL foreign key truncate violations
+        try {
+            Product::query()->delete();
+            Service::query()->delete();
+            Project::query()->delete();
+            Category::query()->delete();
+            Testimonial::query()->delete();
+            TeamMember::query()->delete();
+            Client::query()->delete();
+            Gallery::query()->delete();
+            Blog::query()->delete();
+            BlogCategory::query()->delete();
+            Setting::query()->delete();
+        } catch (\Throwable $e) {
+            // Continue if tables are already clean
+        }
 
         // 2. Comprehensive Settings - Exact Real Data from maisagrohouse.com
         $settings = [
