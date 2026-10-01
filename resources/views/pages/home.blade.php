@@ -4,14 +4,10 @@
 @section('meta_description', 'Explore legally verified residential plots, luxury apartments, and fertile farmland investments in Bhubaneswar by Mais Agro House.')
 
 @section('content')
-{{-- MAIS AGRO HOUSE LUXURY VIDEO HERO BANNER --}}
+{{-- MAIS AGRO HOUSE LUXURY HERO BANNER --}}
 <section class="hm-video-hero position-relative">
-  {{-- Cinematic Background Video with Company Property Image Poster Fallback --}}
-  <video class="hm-hero-video-bg" autoplay muted loop playsinline poster="{{ asset('images/hero-banner.png') }}" id="heroVideo">
-    <source src="{{ asset('videos/hero-video.mp4') }}" type="video/mp4">
-    {{-- Fallback for browsers that don't support video --}}
-    <img src="{{ asset('images/hero-banner.png') }}" alt="Mais Agro House Commercial Properties Bhubaneswar" class="hm-hero-img-bg">
-  </video>
+  {{-- Hero Section Banner Image --}}
+  <img src="{{ asset('images/hero-banner.png') }}" alt="Mais Agro House Luxury Real Estate & Infrastructure Bhubaneswar" class="hm-hero-img-bg">
   <div class="hm-hero-video-overlay"></div>
   <div class="container hm-video-hero-content text-center">
     <div class="row justify-content-center">
