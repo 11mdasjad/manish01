@@ -682,6 +682,12 @@ a:hover {
   object-position: center;
   z-index: 1;
   animation: heroKenBurns 28s infinite ease-in-out;
+  transition: opacity 1.2s ease;
+}
+
+.hm-hero-img-bg.hm-hero-fallback-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .hm-hero-video-bg {
@@ -695,6 +701,83 @@ a:hover {
   transform: translate(-50%, -50%);
   object-fit: cover;
   z-index: 1;
+  pointer-events: none;
+}
+
+/* Dynamic Ambient Glowing Aura & Orbs */
+.hm-hero-ambient-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.hm-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.hm-glow-orb-1 {
+  width: 50vw;
+  height: 50vw;
+  max-width: 600px;
+  max-height: 600px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.05) 50%, transparent 70%);
+  top: -10%;
+  left: 15%;
+  animation: heroOrbFloat1 18s ease-in-out infinite alternate;
+}
+
+.hm-glow-orb-2 {
+  width: 60vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 700px;
+  background: radial-gradient(circle, rgba(14, 116, 144, 0.32) 0%, rgba(30, 58, 138, 0.15) 50%, transparent 70%);
+  bottom: -15%;
+  right: 10%;
+  animation: heroOrbFloat2 22s ease-in-out infinite alternate;
+}
+
+@keyframes heroOrbFloat1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  50% { transform: translate(12%, 18%) scale(1.15); opacity: 0.95; }
+  100% { transform: translate(-10%, 10%) scale(0.95); opacity: 0.7; }
+}
+
+@keyframes heroOrbFloat2 {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50% { transform: translate(-15%, -12%) scale(1.18); opacity: 0.6; }
+  100% { transform: translate(8%, -20%) scale(0.9); opacity: 0.85; }
+}
+
+@keyframes badgeGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, 0), 0 4px 20px rgba(212, 175, 55, 0.35);
+  }
+}
+
+.hm-hero-badge-animated {
+  animation: badgeGlowPulse 3.5s infinite ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@keyframes heroLogoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
 .hm-hero-video-overlay {
@@ -709,7 +792,7 @@ a:hover {
     rgba(6, 14, 26, 0.35) 35%,
     rgba(6, 14, 26, 0.82) 100%
   );
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Mais Agro House Hero Logo */
@@ -717,6 +800,7 @@ a:hover {
   position: relative;
   display: inline-block;
   margin-bottom: 22px;
+  animation: heroLogoFloat 6s ease-in-out infinite;
 }
 
 .hm-hero-logo {
@@ -734,6 +818,55 @@ a:hover {
 .hm-hero-logo:hover {
   transform: translateY(-4px) scale(1.06);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.55);
+}
+
+/* Scroll indicator */
+.hm-hero-scroll-indicator {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  animation: heroScrollBob 2.5s ease-in-out infinite;
+}
+
+.hm-hero-scroll-indicator:hover {
+  color: #d4af37;
+}
+
+.hm-mouse-icon {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.hm-mouse-wheel {
+  width: 4px;
+  height: 8px;
+  background: #d4af37;
+  border-radius: 2px;
+  animation: mouseWheelDrop 1.8s ease-in-out infinite;
+}
+
+@keyframes mouseWheelDrop {
+  0% { transform: translateY(0); opacity: 1; }
+  80% { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+@keyframes heroScrollBob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
 }
 
 .hm-video-hero-content {
@@ -1595,9 +1728,30 @@ a:hover {
 
 /* Mobile Specific Optimizations (< 768px) */
 @media (max-width: 767.98px) {
-  /* Provide bottom clearance for the mobile sticky action bar */
+  /* Prevent horizontal scrolling & set safe bottom clearance */
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    padding-bottom: 64px;
+    padding-bottom: 68px !important;
+  }
+
+  /* Prevent iOS zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Mobile Brand Logo Size in Navbar */
+  .hm-navbar-brand img,
+  .hm-brand-logo {
+    max-height: 40px !important;
+    max-width: 165px !important;
+    width: auto !important;
+    object-fit: contain;
   }
 
   /* Hide sticky right enquire tab on phones to prevent overlapping buttons */
@@ -1611,39 +1765,52 @@ a:hover {
     display: none !important;
   }
 
-  /* Video Hero Banner */
+  /* Video Hero Banner on Mobile */
   .hm-video-hero {
+    min-height: calc(100svh - 40px) !important;
     min-height: 520px !important;
+    padding-top: 40px !important;
   }
 
   .hm-video-hero-content {
-    padding: 95px 16px 40px !important;
+    padding: 85px 14px 40px !important;
   }
 
   /* Hero Logo on Mobile */
   .hm-hero-logo {
-    height: 74px !important;
-    width: 74px !important;
+    height: 68px !important;
+    width: 68px !important;
     border-radius: 16px !important;
   }
 
   .hm-hero-logo-box {
-    margin-bottom: 14px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Hero Badge on Mobile */
+  .hm-hero-badge-animated {
+    font-size: 0.72rem !important;
+    padding: 6px 12px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
   }
 
   .hm-video-title {
-    font-size: 1.85rem !important;
-    line-height: 1.25 !important;
-    margin-bottom: 14px !important;
+    font-size: clamp(1.75rem, 6.8vw, 2.35rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 12px !important;
+    word-break: break-word;
   }
 
   .hm-video-desc {
-    font-size: 0.92rem !important;
-    line-height: 1.55 !important;
+    font-size: clamp(0.86rem, 3.4vw, 0.98rem) !important;
+    line-height: 1.6 !important;
     margin-bottom: 22px !important;
+    padding: 0 4px !important;
   }
 
-  /* Hero Action Buttons */
+  /* Hero Action Buttons on Mobile */
   .hm-hero-btns {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1654,58 +1821,79 @@ a:hover {
   .hm-hero-btns > a,
   .hm-hero-btns > button {
     width: 100% !important;
+    min-height: 48px !important;
     text-align: center !important;
     justify-content: center !important;
     display: inline-flex !important;
     align-items: center !important;
     padding: 12px 18px !important;
     font-size: 0.88rem !important;
+    border-radius: 10px !important;
   }
 
-  /* Stats Strip */
+  /* Stats Strip on Mobile */
   .hm-stats-strip {
-    margin-top: 16px !important;
-    margin-bottom: 16px !important;
+    margin-top: 14px !important;
+    margin-bottom: 14px !important;
   }
 
   .hm-stat-box {
-    padding: 16px 12px !important;
+    padding: 14px 8px !important;
+    border-radius: 12px !important;
+    text-align: center;
   }
 
   .hm-stat-number {
-    font-size: 1.7rem !important;
-    margin-bottom: 4px !important;
+    font-size: clamp(1.35rem, 5.2vw, 1.7rem) !important;
+    margin-bottom: 2px !important;
   }
 
   .hm-stat-label {
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
   }
 
-  /* Section Padding */
+  /* Section Padding on Mobile */
   .hm-section {
-    padding: 46px 0 !important;
+    padding: 42px 0 !important;
   }
 
   .hm-section-sm {
-    padding: 32px 0 !important;
+    padding: 28px 0 !important;
   }
 
   .hm-section-title {
-    font-size: 1.65rem !important;
+    font-size: clamp(1.5rem, 5.5vw, 1.95rem) !important;
+    line-height: 1.25 !important;
     margin-bottom: 10px !important;
   }
 
   .hm-section-subtitle {
-    font-size: 0.92rem !important;
-    margin-bottom: 24px !important;
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 22px !important;
   }
 
-  /* Card Footers */
+  /* Project & Property Cards on Mobile */
+  .hm-card {
+    border-radius: 14px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .hm-card-img-wrap {
+    aspect-ratio: 16/10 !important;
+    width: 100% !important;
+  }
+
+  .hm-card-body {
+    padding: 16px 14px !important;
+  }
+
   .hm-card-footer {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 10px !important;
-    padding: 12px 16px !important;
+    padding: 12px 14px !important;
   }
 
   .hm-card-footer > span {
@@ -1726,12 +1914,14 @@ a:hover {
     justify-content: center !important;
     display: inline-flex !important;
     align-items: center !important;
+    min-height: 42px !important;
     padding: 8px 10px !important;
     font-size: 0.8rem !important;
     white-space: nowrap !important;
+    border-radius: 8px !important;
   }
 
-  /* About CTAs */
+  /* About CTAs on Mobile */
   .hm-about-ctas {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -1741,14 +1931,17 @@ a:hover {
 
   .hm-about-ctas .hm-btn {
     width: 100% !important;
+    min-height: 48px !important;
     text-align: center !important;
     justify-content: center !important;
     display: inline-flex !important;
+    align-items: center !important;
   }
 
-  /* Service Boxes */
+  /* Service Boxes on Mobile */
   .hm-service-box {
-    padding: 20px 16px !important;
+    padding: 18px 14px !important;
+    border-radius: 14px !important;
   }
 
   .hm-service-box .d-flex.align-items-start {
@@ -1765,43 +1958,84 @@ a:hover {
 
   .hm-service-box .hm-btn {
     width: 100% !important;
+    min-height: 44px !important;
     text-align: center !important;
     justify-content: center !important;
     display: inline-flex !important;
+    align-items: center !important;
   }
 
-  /* Inner Page Breadcrumbs Banner */
+  /* Amenities Cards on Mobile */
+  .card [style*="height: 220px"] {
+    height: 180px !important;
+  }
+
+  /* EMI Calculator on Mobile */
+  #emiResultBox {
+    padding: 24px 16px !important;
+    border-radius: 18px !important;
+    margin-top: 16px !important;
+  }
+
+  #emiResultMonthly {
+    font-size: clamp(1.8rem, 6.5vw, 2.5rem) !important;
+  }
+
+  /* Inner Page Breadcrumbs Banner on Mobile */
   .hm-breadcrumb-wrap {
-    padding: 95px 0 28px !important;
+    padding: 85px 0 24px !important;
   }
 
   .hm-breadcrumb-wrap h1 {
-    font-size: 1.65rem !important;
+    font-size: 1.55rem !important;
   }
 
   .hm-breadcrumb-wrap p.lead {
-    font-size: 0.88rem !important;
+    font-size: 0.86rem !important;
   }
 
-  /* Project filter buttons */
+  /* Project filter buttons on Mobile */
   .hm-project-filter-btn {
-    font-size: 0.75rem !important;
-    padding: 5px 8px !important;
+    font-size: 0.8rem !important;
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
   }
 
-  /* CTA Banner */
+  /* CTA Banner on Mobile */
   .hm-cta-banner {
-    padding: 32px 18px !important;
+    padding: 32px 16px !important;
     text-align: center;
+    border-radius: 16px !important;
   }
 
   .hm-cta-banner h2 {
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
   }
 
-  /* Footer Bottom */
+  /* Offcanvas Mobile Menu Drawer */
+  .offcanvas {
+    max-width: 85vw !important;
+  }
+
+  .offcanvas-body .nav-link {
+    padding: 10px 12px !important;
+    border-radius: 8px !important;
+    font-size: 0.95rem !important;
+  }
+
+  /* Footer on Mobile */
+  .hm-footer {
+    padding: 40px 0 20px !important;
+  }
+
+  .hm-footer-links li a {
+    font-size: 0.82rem !important;
+    padding: 3px 0 !important;
+    display: inline-block !important;
+  }
+
   .hm-footer-bottom {
-    padding: 18px 0 28px !important;
+    padding: 16px 0 24px !important;
     text-align: center;
   }
 

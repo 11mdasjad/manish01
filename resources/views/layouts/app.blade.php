@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   {{-- Corporate Theme CSS --}}
-  <link rel="stylesheet" href="{{ asset('css/corporate-theme.css') }}?v=1.0.0">
+  <link rel="stylesheet" href="{{ asset('css/corporate-theme.css') }}?v=1.0.1">
 
   {{-- Schema.org Organization Structured Data --}}
   <script type="application/ld+json">
@@ -198,7 +198,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   {{-- Corporate Core JS --}}
-  <script src="{{ asset('js/corporate-app.js') }}?v=1.0.0"></script>
+  <script src="{{ asset('js/corporate-app.js') }}?v=1.0.1"></script>
 
   @stack('scripts')
 </body>

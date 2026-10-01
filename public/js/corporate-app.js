@@ -4,22 +4,40 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-  // 0. Hero Video Autoplay Handler (graceful fallback for mobile)
+  // 0. Hero Video Autoplay & Mobile Graceful Playback Handler
   const heroVideo = document.getElementById('heroVideo');
+  const heroFallbackImg = document.getElementById('heroFallbackImg');
   if (heroVideo) {
-    const playPromise = heroVideo.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(function () {
-        // Autoplay blocked — poster image will show as fallback
-        heroVideo.style.display = 'none';
-        // Show fallback static image
-        const fallbackImg = heroVideo.querySelector('img.hm-hero-img-bg');
-        if (fallbackImg) {
-          heroVideo.parentNode.insertBefore(fallbackImg, heroVideo);
-          fallbackImg.style.display = 'block';
-        }
-      });
-    }
+    const tryPlayVideo = function () {
+      const playPromise = heroVideo.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function () {
+          // Video is playing smoothly
+          if (heroFallbackImg) {
+            heroFallbackImg.classList.add('hm-hero-fallback-hidden');
+          }
+        }).catch(function () {
+          // Video blocked by browser autoplay/low-power policy
+          // Keep animated fallback image active
+          if (heroFallbackImg) {
+            heroFallbackImg.classList.remove('hm-hero-fallback-hidden');
+          }
+        });
+      }
+    };
+
+    tryPlayVideo();
+
+    // On mobile devices where autoplay is blocked, initiate on first user tap/scroll
+    const onFirstInteraction = function () {
+      tryPlayVideo();
+      window.removeEventListener('touchstart', onFirstInteraction);
+      window.removeEventListener('scroll', onFirstInteraction);
+      window.removeEventListener('click', onFirstInteraction);
+    };
+    window.addEventListener('touchstart', onFirstInteraction, { passive: true });
+    window.addEventListener('scroll', onFirstInteraction, { passive: true });
+    window.addEventListener('click', onFirstInteraction, { passive: true });
   }
 
   // 1. Sticky Navbar Scroll State

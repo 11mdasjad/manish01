@@ -4,11 +4,26 @@
 @section('meta_description', 'Explore legally verified residential plots, luxury apartments, and fertile farmland investments in Bhubaneswar by Mais Agro House.')
 
 @section('content')
-{{-- MAIS AGRO HOUSE LUXURY HERO BANNER --}}
+{{-- MAIS AGRO HOUSE LUXURY VIDEO & ANIMATED HERO BANNER --}}
 <section class="hm-video-hero position-relative">
-  {{-- Hero Section Banner Image --}}
-  <img src="{{ asset('images/hero-banner.png') }}" alt="Mais Agro House Luxury Real Estate & Infrastructure Bhubaneswar" class="hm-hero-img-bg">
+  {{-- High Definition Video Background with Autoplay & Fallback --}}
+  <video class="hm-hero-video-bg" autoplay muted loop playsinline preload="auto" poster="{{ asset('images/hero-banner.png') }}" id="heroVideo">
+    <source src="{{ asset('videos/hero-video.mp4') }}" type="video/mp4">
+  </video>
+
+  {{-- Fallback Image Poster with Ken Burns Animation (Active during load or if video paused) --}}
+  <img src="{{ asset('images/hero-banner.png') }}" alt="Mais Agro House Real Estate Bhubaneswar" class="hm-hero-img-bg" id="heroFallbackImg">
+
+  {{-- Ambient Glowing Animated Aurora Orbs --}}
+  <div class="hm-hero-ambient-glow" aria-hidden="true">
+    <div class="hm-glow-orb hm-glow-orb-1"></div>
+    <div class="hm-glow-orb hm-glow-orb-2"></div>
+  </div>
+
+  {{-- Cinematic Gradient Overlay for Maximum Typography Contrast --}}
   <div class="hm-hero-video-overlay"></div>
+
+  {{-- Hero Content Container --}}
   <div class="container hm-video-hero-content text-center">
     <div class="row justify-content-center">
       <div class="col-xl-9 col-lg-10">
@@ -17,7 +32,7 @@
           <img src="{{ asset('images/logo.png') }}" alt="Mais Agro House" class="hm-hero-logo">
         </div>
         <div>
-          <span class="badge bg-warning text-dark text-uppercase fw-bold px-3 py-2 mb-3 rounded-pill letter-spacing-1">
+          <span class="badge bg-warning text-dark text-uppercase fw-bold px-3 py-2 mb-3 rounded-pill letter-spacing-1 hm-hero-badge-animated">
             <i class="bi bi-geo-alt-fill me-1"></i> {{ \App\Models\Setting::get('hero_badge', "Bhubaneswar's Premier Real Estate") }}
           </span>
         </div>
@@ -36,6 +51,14 @@
       </div>
     </div>
   </div>
+
+  {{-- Desktop Scroll Indicator --}}
+  <a href="#featured-projects" class="hm-hero-scroll-indicator d-none d-md-flex" aria-label="Scroll to featured properties">
+    <span class="hm-mouse-icon">
+      <span class="hm-mouse-wheel"></span>
+    </span>
+    <span class="text-xs text-uppercase letter-spacing-1 mt-1">Scroll</span>
+  </a>
 </section>
 
 {{-- KEY REAL ESTATE STATS STRIP --}}
